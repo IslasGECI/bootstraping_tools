@@ -9,4 +9,10 @@ classifiers = [ "License :: OSI Approved :: GNU General Public License v3 or lat
 description-file = "README.md"
 home-page = "https://github.com/IslasGECI/bootstraping_tools"
 module = "bootstraping_tools"
+requires = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "tqdm",
+]
 requires-python=">=3.9"

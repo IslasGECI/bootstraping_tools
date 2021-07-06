@@ -31,7 +31,7 @@ def test_power_law():
     assert output == 2
 
 
-data_original: np.array = np.append(np.ones(45), [2, 5, 6])
+data_original = np.append(np.ones(45), [2, 5, 6])
 
 
 def test_lambda_calculator():

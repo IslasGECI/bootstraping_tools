@@ -101,4 +101,3 @@ def calculate_p_values(distribution):
     mask = distribution < 1
     mask2 = distribution > 1
     return mask.sum() / len(distribution), mask2.sum() / len(distribution)
-

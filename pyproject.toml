@@ -13,6 +13,7 @@ requires = [
     "numpy",
     "pandas",
     "scipy",
+    "pandas-stubs",
     "tqdm",
 ]
 requires-python=">=3.9"

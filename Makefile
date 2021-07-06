@@ -12,7 +12,7 @@ all: check coverage mutants
 		tests
 
 module = bootstraping_tools
-codecov_token = 6c56bccb-1758-4ed9-8161-97c845591c26
+codecov_token = ab86639f-449b-4365-a763-172f8c99214a
 
 define lint
 	pylint \

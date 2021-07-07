@@ -1,5 +1,5 @@
 import numpy as np
-from bootstraping_tools import (
+from bootstrapping_tools import (
     seasons_from_date,
     power_law,
     remove_distribution_outliers,

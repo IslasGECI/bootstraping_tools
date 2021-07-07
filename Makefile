@@ -11,7 +11,7 @@ all: check coverage mutants
 		mutants \
 		tests
 
-module = bootstraping_tools
+module = bootstrapping_tools
 codecov_token = ab86639f-449b-4365-a763-172f8c99214a
 
 define lint

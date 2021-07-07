@@ -16,4 +16,4 @@ requires = [
     "scipy",
     "tqdm",
 ]
-requires-python=">=3.9"
+requires-python=">=3"

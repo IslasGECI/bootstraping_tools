@@ -54,8 +54,11 @@ def test_boostrapping_feature():
 
 
 def test_lambdas_from_bootstrap_table():
-    data_nest = pd.DataFrame({"2018": [1, 1], "2019": [2, 2]})
-    lambdas_from_bootstrap_table(data_nest)
+    data_nest = pd.DataFrame({"2018": [1.1, 1.1, 0.9, 0.9], "2019": [2.1, 2.1, 1.9, 1.9]})
+    obtained_lambdas = lambdas_from_bootstrap_table(data_nest)
+    expected_lambdas = [1.9091, 1.9091, 2.1111, 2.1111]
+    are_close = np.isclose(expected_lambdas, obtained_lambdas, rtol=1e-5).all()
+    assert are_close
 
 
 def test_get_bootstrap_interval():

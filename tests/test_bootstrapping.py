@@ -8,6 +8,7 @@ from bootstrapping_tools import (
     calculate_p_values,
     lambda_calculator,
     lambdas_from_bootstrap_table,
+    mean_bootstrapped,
 )
 import pandas as pd
 
@@ -70,3 +71,10 @@ def test_calculate_p_values():
     expected_p_value = (0.0, 0.0625)
     output = calculate_p_values(data_original)
     assert expected_p_value == output
+
+
+def test_mean_bootstrapped():
+    data_test = np.arange(0, 10)
+    N_test = 500
+    obtained_distribution = mean_bootstrapped(data_test, N=N_test)
+    assert len(obtained_distribution) == N_test

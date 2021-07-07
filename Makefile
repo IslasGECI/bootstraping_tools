@@ -11,8 +11,8 @@ all: check coverage mutants
 		mutants \
 		tests
 
-module = dummy_transformations
-codecov_token = 6c56bccb-1758-4ed9-8161-97c845591c26
+module = bootstrapping_tools
+codecov_token = ab86639f-449b-4365-a763-172f8c99214a
 
 define lint
 	pylint \
@@ -23,7 +23,7 @@ define lint
         ${1}
 endef
 
-check:
+check: install
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 tests
 	flake8 --max-line-length 100 ${module}
@@ -54,7 +54,7 @@ linter:
 	$(call lint, ${module})
 	$(call lint, tests)
 
-mutants:
+mutants: install
 	mutmut run --paths-to-mutate ${module}
 
 tests: install

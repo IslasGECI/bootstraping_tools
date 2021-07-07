@@ -8,6 +8,7 @@ from bootstrapping_tools import (
     calculate_p_values,
     lambda_calculator,
     lambdas_from_bootstrap_table,
+    mean_bootstrapped,
 )
 import pandas as pd
 
@@ -54,8 +55,11 @@ def test_boostrapping_feature():
 
 
 def test_lambdas_from_bootstrap_table():
-    data_nest = pd.DataFrame({"2018": [1, 1], "2019": [2, 2]})
-    lambdas_from_bootstrap_table(data_nest)
+    data_nest = pd.DataFrame({"2018": [1.1, 1.1, 0.9, 0.9], "2019": [2.1, 2.1, 1.9, 1.9]})
+    obtained_lambdas = lambdas_from_bootstrap_table(data_nest)
+    expected_lambdas = [1.9091, 1.9091, 2.1111, 2.1111]
+    are_close = np.isclose(expected_lambdas, obtained_lambdas, rtol=1e-5).all()
+    assert are_close
 
 
 def test_get_bootstrap_interval():
@@ -67,3 +71,12 @@ def test_calculate_p_values():
     expected_p_value = (0.0, 0.0625)
     output = calculate_p_values(data_original)
     assert expected_p_value == output
+
+
+def test_mean_bootstrapped():
+    data_test = np.arange(0, 10)
+    N_test = 5
+    obtained_distribution = mean_bootstrapped(data_test, N=N_test)
+    assert len(obtained_distribution) == N_test
+    expected_distribution = [4.1, 5.0, 5.1, 6.2, 6.1]
+    np.testing.assert_array_equal(obtained_distribution, expected_distribution)

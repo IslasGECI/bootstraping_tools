@@ -25,21 +25,21 @@ def lambda_calculator(
     return popt
 
 
-def remove_distribution_outliers(data, multiplier=2.5):
+def remove_distribution_outliers(data, number_of_std=2.5):
     data = np.array(data)
     mean = np.mean(data)
     std = np.std(data)
-    mask = abs(data - mean) < std * multiplier
+    mask = abs(data - mean) < std * number_of_std
     return data[mask]
 
 
-def tukey_fences(data, multiplier=1.5):
+def tukey_fences(data, fence_width=1.5):
     data = np.array(data)
     first_quantile = np.quantile(data, 0.25)
     third_quantile = np.quantile(data, 0.75)
     interquartile_range = third_quantile - first_quantile
-    lower_limit = first_quantile - (interquartile_range * multiplier)
-    upper_limit = third_quantile + (interquartile_range * multiplier)
+    lower_limit = first_quantile - (interquartile_range * fence_width)
+    upper_limit = third_quantile + (interquartile_range * fence_width)
     mask = (data > lower_limit) & (data < upper_limit)
     return data[mask]
 
@@ -102,8 +102,7 @@ def lambdas_bootstrap_from_dataframe(
             raise Exception("No se reconoce el método de filtrado")
     if return_distribution == True:
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    else:
-        return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
 def get_bootstrap_interval(bootrap_interval):
@@ -149,8 +148,7 @@ def bootstrap_from_time_series(
             raise Exception("No se reconoce el método de filtrado")
     if return_distribution == True:
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    else:
-        return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
 def calculate_p_values(distribution):

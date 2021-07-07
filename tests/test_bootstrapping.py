@@ -44,7 +44,7 @@ def test_lambda_calculator():
 
 def test_remove_distribution_outliers():
     expected_data: np.array = np.append(np.ones(45), [2, 5])
-    obtained_data = remove_distribution_outliers(data_original)
+    obtained_data = remove_distribution_outliers(data_original, number_of_std=5)
     np.testing.assert_array_equal(expected_data, obtained_data)
 
 

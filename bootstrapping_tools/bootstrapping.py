@@ -162,6 +162,7 @@ def generate_latex_interval_string(intervals):
     lower_limit, central, upper_limit = get_bootstrap_interval(intervals)
     return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
 
+
 def mean_bootstrapped(data, N=2000):
     dataframe = pd.DataFrame(data)
     bootstrap_mean = []

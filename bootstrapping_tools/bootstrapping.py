@@ -169,4 +169,4 @@ def mean_bootstrapped(data, N=2000):
     for i in range(N):
         resampled_data = dataframe.sample(n=len(dataframe), random_state=i, replace=True)
         bootstrap_mean.append(np.mean(resampled_data))
-    return bootstrap_mean
+    return np.squeeze(bootstrap_mean)

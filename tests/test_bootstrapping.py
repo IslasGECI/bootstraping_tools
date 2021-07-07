@@ -75,6 +75,8 @@ def test_calculate_p_values():
 
 def test_mean_bootstrapped():
     data_test = np.arange(0, 10)
-    N_test = 500
+    N_test = 5
     obtained_distribution = mean_bootstrapped(data_test, N=N_test)
     assert len(obtained_distribution) == N_test
+    expected_distribution = [4.1, 5.0, 5.1, 6.2, 6.1]
+    np.testing.assert_array_equal(obtained_distribution, expected_distribution)

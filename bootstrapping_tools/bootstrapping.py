@@ -5,8 +5,8 @@ from scipy.optimize import curve_fit
 from tqdm import tqdm
 
 
-def power_law(T, Lambda, No):
-    return No * np.power(Lambda, T)
+def power_law(time_interval, population_growth_rate, initial_population_size):
+    return initial_population_size * np.power(population_growth_rate, time_interval)
 
 
 def lambda_calculator(
@@ -15,7 +15,7 @@ def lambda_calculator(
     temporadas = np.array(temporadas)
     numero_agno = temporadas - temporadas[0]
     maximo_nidos = np.array(maximo_nidos)
-    popt, pcov = curve_fit(
+    popt, _ = curve_fit(
         power_law,
         numero_agno,
         maximo_nidos,
@@ -69,8 +69,7 @@ def lambdas_bootstrap_from_dataframe(dataframe, column_name, N=20, return_distri
     lambdas_bootstraps = lambdas_from_bootstrap_table(bootstraped_data)
     if return_distribution:
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    else:
-        return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
 def get_bootstrap_interval(bootrap_interval):
@@ -92,8 +91,7 @@ def bootstrap_from_time_series(dataframe, column_name, N=20, return_distribution
     lambdas_bootstraps = remove_distribution_outliers(lambdas_bootstraps)
     if return_distribution:
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    else:
-        return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
 def calculate_p_values(distribution):

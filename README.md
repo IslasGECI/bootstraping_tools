@@ -1,1 +1,1 @@
-# Bootstraping tools
+# Bootstrapping tools

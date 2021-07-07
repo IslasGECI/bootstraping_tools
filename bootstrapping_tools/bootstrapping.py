@@ -67,9 +67,7 @@ def lambdas_bootstrap_from_dataframe(dataframe, column_name, N=20, return_distri
         data_per_season = dataframe[dataframe.Temporada == season]
         bootstraped_data[season] = boostrapping_feature(data_per_season[column_name], N)
     lambdas_bootstraps = lambdas_from_bootstrap_table(bootstraped_data)
-    if return_distribution:
-        return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+    return _return_distribution(return_distribution, lambdas_bootstraps)
 
 
 def get_bootstrap_interval(bootrap_interval):
@@ -89,6 +87,10 @@ def bootstrap_from_time_series(dataframe, column_name, N=20, return_distribution
         fitting_result = lambda_calculator(resampled_data["Temporada"], resampled_data[column_name])
         lambdas_bootstraps.append(fitting_result[0])
     lambdas_bootstraps = remove_distribution_outliers(lambdas_bootstraps)
+    return _return_distribution(return_distribution, lambdas_bootstraps)
+
+
+def _return_distribution(return_distribution, lambdas_bootstraps):
     if return_distribution:
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])

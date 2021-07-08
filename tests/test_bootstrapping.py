@@ -9,6 +9,7 @@ from bootstrapping_tools import (
     lambda_calculator,
     lambdas_from_bootstrap_table,
     generate_latex_interval_string,
+    lambdas_bootstrap_from_dataframe,
 )
 import pandas as pd
 
@@ -60,6 +61,16 @@ def test_lambdas_from_bootstrap_table():
     expected_lambdas = [1.9091, 1.9091, 2.1111, 2.1111]
     are_close = np.isclose(expected_lambdas, obtained_lambdas, rtol=1e-5).all()
     assert are_close
+
+
+def test_lambdas_bootstrap_from_dataframe():
+    data_nest = pd.DataFrame(
+        {
+            "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
+            "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+        }
+    )
+    lambdas_bootstrap_from_dataframe(data_nest, "Nest", N=20, remove_outliers=False)
 
 
 def test_get_bootstrap_interval():

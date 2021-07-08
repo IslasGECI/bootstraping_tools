@@ -12,6 +12,7 @@ from bootstrapping_tools import (
     generate_latex_interval_string,
     mean_bootstrapped,
     tukey_fences,
+    bootstrap_from_time_series,
 )
 import pandas as pd
 
@@ -72,13 +73,15 @@ def test_lambdas_from_bootstrap_table():
     assert are_close
 
 
+data_nest = pd.DataFrame(
+    {
+        "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
+        "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+    }
+)
+
+
 def test_lambdas_bootstrap_from_dataframe():
-    data_nest = pd.DataFrame(
-        {
-            "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
-            "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
-        }
-    )
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
         data_nest, "Nest", N=20, remove_outliers=False
     )
@@ -90,6 +93,17 @@ def test_lambdas_bootstrap_from_dataframe():
 def test_get_bootstrap_interval():
     output = get_bootstrap_interval(data_original)
     assert output == [0, 1, 0]
+
+
+def test_bootstrap_from_time_series():
+    obtained_bootstrap_from_time_series = bootstrap_from_time_series(
+        data_nest, "Nest", N=20, remove_outliers=False
+    )
+    expected_bootstrap_from_time_series = np.array([1.78180307, 1.82117423, 1.94509028])
+    are_close = np.isclose(
+        expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
+    ).all()
+    assert are_close
 
 
 def test_calculate_p_values():

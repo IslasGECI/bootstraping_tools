@@ -52,7 +52,7 @@ def test_remove_distribution_outliers():
 
 
 def test_boostrapping_feature():
-    output = boostrapping_feature(data_original, N=2)
+    output = boostrapping_feature(data_original, number_sample=2)
     assert output == [1.0, 1.0]
 
 

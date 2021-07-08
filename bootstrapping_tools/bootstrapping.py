@@ -49,10 +49,10 @@ def seasons_from_date(data):
     return np.array(seasons[2])
 
 
-def boostrapping_feature(data, N=2000):
+def boostrapping_feature(data, number_sample=2000):
     dataframe = pd.DataFrame(data)
     bootstrap_data = []
-    for i in range(N):
+    for i in range(number_sample):
         resampled_data = dataframe.sample(n=1, random_state=i)
         bootstrap_data.append(resampled_data.iloc[0][0])
     return bootstrap_data

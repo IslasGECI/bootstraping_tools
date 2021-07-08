@@ -170,3 +170,9 @@ def mean_bootstrapped(data, N=2000):
         resampled_data = dataframe.sample(n=len(dataframe), random_state=i, replace=True)
         bootstrap_mean.append(np.mean(resampled_data))
     return np.squeeze(bootstrap_mean)
+
+def remove_outlier(method, lambdas_bootstraps, **kwargs):
+    outlier_method = {"tukey": tukey_fences, "std": remove_distribution_outliers}
+    assert method in outlier_method
+    lambdas_bootstraps = outlier_method[method](lambdas_bootstraps, **kwargs)
+    return lambdas_bootstraps

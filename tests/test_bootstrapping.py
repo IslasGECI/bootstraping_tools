@@ -13,6 +13,7 @@ from bootstrapping_tools import (
     mean_bootstrapped,
     tukey_fences,
     bootstrap_from_time_series,
+    remove_outlier,
 )
 import pandas as pd
 
@@ -127,3 +128,15 @@ def test_mean_bootstrapped():
     obtained_distribution = mean_bootstrapped(data_test)
     default_bootstrapping_size_sample = 2000
     assert len(obtained_distribution) == default_bootstrapping_size_sample
+
+
+def test_remove_outlier():
+    data_original = np.append(np.ones(2), [2, 3, 6])
+    expected_data: np.array = np.append(np.ones(2), [2, 3])
+    obtained_data = remove_outlier("tukey", data_original)
+    np.testing.assert_array_equal(expected_data, obtained_data)
+    data_original = np.append(np.ones(45), [2, 5, 6])
+    expected_data: np.array = np.append(np.ones(45), [2, 5])
+    obtained_data = remove_outlier("std", data_original, number_of_std=5)
+    np.testing.assert_array_equal(expected_data, obtained_data)
+    

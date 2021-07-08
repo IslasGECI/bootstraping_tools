@@ -8,6 +8,7 @@ from bootstrapping_tools import (
     calculate_p_values,
     lambda_calculator,
     lambdas_from_bootstrap_table,
+    generate_latex_interval_string,
 )
 import pandas as pd
 
@@ -70,3 +71,9 @@ def test_calculate_p_values():
     expected_p_value = (0.0, 0.0625)
     output = calculate_p_values(data_original)
     assert expected_p_value == output
+
+
+def test_generate_latex_interval_string():
+    expected_latex_interval_string = "${1.0}_{-0.0}^{+0.0}$"
+    obtained_latex_interval_string = generate_latex_interval_string(data_original)
+    assert expected_latex_interval_string == obtained_latex_interval_string

@@ -71,7 +71,12 @@ def test_lambdas_bootstrap_from_dataframe():
             "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
         }
     )
-    lambdas_bootstrap_from_dataframe(data_nest, "Nest", N=20, remove_outliers=False)
+    obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
+        data_nest, "Nest", N=20, remove_outliers=False
+    )
+    expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
+    are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()
+    assert are_close
 
 
 def test_get_bootstrap_interval():

@@ -49,10 +49,10 @@ def seasons_from_date(data):
     return np.array(seasons[2])
 
 
-def boostrapping_feature(data, N=2000):
+def boostrapping_feature(data, number_sample=2000):
     dataframe = pd.DataFrame(data)
     bootstrap_data = []
-    for i in range(N):
+    for i in range(number_sample):
         resampled_data = dataframe.sample(n=1, random_state=i)
         bootstrap_data.append(resampled_data.iloc[0][0])
     return bootstrap_data
@@ -161,3 +161,12 @@ def calculate_p_values(distribution):
 def generate_latex_interval_string(intervals):
     lower_limit, central, upper_limit = get_bootstrap_interval(intervals)
     return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
+
+
+def mean_bootstrapped(data, N=2000):
+    dataframe = pd.DataFrame(data)
+    bootstrap_mean = []
+    for i in range(N):
+        resampled_data = dataframe.sample(n=len(dataframe), random_state=i, replace=True)
+        bootstrap_mean.append(np.mean(resampled_data))
+    return np.squeeze(bootstrap_mean)

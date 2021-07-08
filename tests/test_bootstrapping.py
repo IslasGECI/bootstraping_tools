@@ -7,9 +7,12 @@ from bootstrapping_tools import (
     get_bootstrap_interval,
     calculate_p_values,
     lambda_calculator,
+    lambdas_bootstrap_from_dataframe,
     lambdas_from_bootstrap_table,
     generate_latex_interval_string,
-    lambdas_bootstrap_from_dataframe,
+    mean_bootstrapped,
+    tukey_fences,
+    bootstrap_from_time_series,
 )
 import pandas as pd
 
@@ -50,8 +53,15 @@ def test_remove_distribution_outliers():
     np.testing.assert_array_equal(expected_data, obtained_data)
 
 
+def test_tukey_fences():
+    data_original = np.append(np.ones(2), [2, 3, 6])
+    expected_data: np.array = np.append(np.ones(2), [2, 3])
+    obtained_data = tukey_fences(data_original)
+    np.testing.assert_array_equal(expected_data, obtained_data)
+
+
 def test_boostrapping_feature():
-    output = boostrapping_feature(data_original, N=2)
+    output = boostrapping_feature(data_original, number_sample=2)
     assert output == [1.0, 1.0]
 
 
@@ -63,19 +73,37 @@ def test_lambdas_from_bootstrap_table():
     assert are_close
 
 
+data_nest = pd.DataFrame(
+    {
+        "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
+        "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+    }
+)
+
+
 def test_lambdas_bootstrap_from_dataframe():
-    data_nest = pd.DataFrame(
-        {
-            "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
-            "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
-        }
+    obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
+        data_nest, "Nest", N=20, remove_outliers=False
     )
-    lambdas_bootstrap_from_dataframe(data_nest, "Nest", N=20, remove_outliers=False)
+    expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
+    are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()
+    assert are_close
 
 
 def test_get_bootstrap_interval():
     output = get_bootstrap_interval(data_original)
     assert output == [0, 1, 0]
+
+
+def test_bootstrap_from_time_series():
+    obtained_bootstrap_from_time_series = bootstrap_from_time_series(
+        data_nest, "Nest", N=20, remove_outliers=False
+    )
+    expected_bootstrap_from_time_series = np.array([1.78180307, 1.82117423, 1.94509028])
+    are_close = np.isclose(
+        expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
+    ).all()
+    assert are_close
 
 
 def test_calculate_p_values():
@@ -88,3 +116,14 @@ def test_generate_latex_interval_string():
     expected_latex_interval_string = "${1.0}_{-0.0}^{+0.0}$"
     obtained_latex_interval_string = generate_latex_interval_string(data_original)
     assert expected_latex_interval_string == obtained_latex_interval_string
+
+
+def test_mean_bootstrapped():
+    data_test = np.arange(0, 10)
+    N_test = 5
+    obtained_distribution = mean_bootstrapped(data_test, N=N_test)
+    expected_distribution = [4.1, 5.0, 5.1, 6.2, 6.1]
+    np.testing.assert_array_equal(obtained_distribution, expected_distribution)
+    obtained_distribution = mean_bootstrapped(data_test)
+    default_bootstrapping_size_sample = 2000
+    assert len(obtained_distribution) == default_bootstrapping_size_sample

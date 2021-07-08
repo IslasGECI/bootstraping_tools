@@ -11,7 +11,6 @@ from bootstrapping_tools import (
     lambdas_from_bootstrap_table,
     generate_latex_interval_string,
     mean_bootstrapped,
-    
 )
 import pandas as pd
 

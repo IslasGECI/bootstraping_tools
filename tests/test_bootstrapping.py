@@ -7,8 +7,11 @@ from bootstrapping_tools import (
     get_bootstrap_interval,
     calculate_p_values,
     lambda_calculator,
+    lambdas_bootstrap_from_dataframe,
     lambdas_from_bootstrap_table,
+    generate_latex_interval_string,
     mean_bootstrapped,
+    
 )
 import pandas as pd
 
@@ -62,6 +65,16 @@ def test_lambdas_from_bootstrap_table():
     assert are_close
 
 
+def test_lambdas_bootstrap_from_dataframe():
+    data_nest = pd.DataFrame(
+        {
+            "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
+            "Nest": [2.0, 3.9, 6.9, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+        }
+    )
+    lambdas_bootstrap_from_dataframe(data_nest, "Nest", N=20, remove_outliers=False)
+
+
 def test_get_bootstrap_interval():
     output = get_bootstrap_interval(data_original)
     assert output == [0, 1, 0]
@@ -71,6 +84,12 @@ def test_calculate_p_values():
     expected_p_value = (0.0, 0.0625)
     output = calculate_p_values(data_original)
     assert expected_p_value == output
+
+
+def test_generate_latex_interval_string():
+    expected_latex_interval_string = "${1.0}_{-0.0}^{+0.0}$"
+    obtained_latex_interval_string = generate_latex_interval_string(data_original)
+    assert expected_latex_interval_string == obtained_latex_interval_string
 
 
 def test_mean_bootstrapped():

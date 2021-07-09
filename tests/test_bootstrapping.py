@@ -2,7 +2,6 @@ import numpy as np
 from bootstrapping_tools import (
     seasons_from_date,
     power_law,
-    remove_distribution_outliers,
     boostrapping_feature,
     get_bootstrap_interval,
     calculate_p_values,
@@ -11,7 +10,6 @@ from bootstrapping_tools import (
     lambdas_from_bootstrap_table,
     generate_latex_interval_string,
     mean_bootstrapped,
-    tukey_fences,
     bootstrap_from_time_series,
     remove_outlier,
 )

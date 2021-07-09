@@ -25,11 +25,11 @@ def lambda_calculator(
     return popt
 
 
-def remove_distribution_outliers(data, number_of_std=2.5):
+def remove_distribution_outliers(data, number_of_std=2.698):
     data = np.array(data)
     mean = np.mean(data)
     std = np.std(data)
-    mask = abs(data - mean) < std * number_of_std
+    mask = abs(data - mean) <= std * number_of_std
     return data[mask]
 
 
@@ -40,7 +40,7 @@ def tukey_fences(data, fence_width=1.5):
     interquartile_range = third_quantile - first_quantile
     lower_limit = first_quantile - (interquartile_range * fence_width)
     upper_limit = third_quantile + (interquartile_range * fence_width)
-    mask = (data > lower_limit) & (data < upper_limit)
+    mask = (lower_limit <= data) & (data <= upper_limit)
     return data[mask]
 
 
@@ -159,6 +159,6 @@ def mean_bootstrapped(data, N=2000):
 
 def remove_outlier(method, lambdas_bootstraps, **kwargs):
     outlier_method = {"tukey": tukey_fences, "std": remove_distribution_outliers}
-    assert method in outlier_method
+    assert method in outlier_method, "No se reconoce el método de filtrado"
     lambdas_bootstraps = outlier_method[method](lambdas_bootstraps, **kwargs)
     return lambdas_bootstraps

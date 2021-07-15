@@ -143,8 +143,8 @@ def calculate_p_values(distribution):
     return mask.sum() / len(distribution), mask2.sum() / len(distribution)
 
 
-def generate_latex_interval_string(intervals):
-    lower_limit, central, upper_limit = get_bootstrap_interval(intervals)
+def generate_latex_interval_string(intervals, **kwargs):
+    lower_limit, central, upper_limit = get_bootstrap_interval(intervals, **kwargs)
     return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
 
 

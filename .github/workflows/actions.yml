@@ -4,12 +4,10 @@ on:
     branches:
       - develop
       - main
-      - master
   push:
     branches:
       - develop
       - main
-      - master
 jobs:
   actions:
     runs-on: ubuntu-latest

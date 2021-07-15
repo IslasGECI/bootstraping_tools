@@ -95,11 +95,11 @@ def lambdas_bootstrap_from_dataframe(
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
-def get_bootstrap_interval(bootrap_interval):
-    inferior_limit = np.around(bootrap_interval[1] - bootrap_interval[0], decimals=2)
-    superior_limit = np.around(bootrap_interval[2] - bootrap_interval[1], decimals=2)
-    bootrap_interval = np.around(bootrap_interval, decimals=2)
-    return [inferior_limit, bootrap_interval[1], superior_limit]
+def get_bootstrap_interval(bootstrap_distribution, **kwargs):
+    inferior_limit = np.around(bootstrap_distribution[1] - bootstrap_distribution[0], **kwargs)
+    superior_limit = np.around(bootstrap_distribution[2] - bootstrap_distribution[1], **kwargs)
+    bootstrap_distribution = np.around(bootstrap_distribution, **kwargs)
+    return [inferior_limit, bootstrap_distribution[1], superior_limit]
 
 
 def bootstrap_from_time_series(
@@ -143,8 +143,8 @@ def calculate_p_values(distribution):
     return mask.sum() / len(distribution), mask2.sum() / len(distribution)
 
 
-def generate_latex_interval_string(intervals):
-    lower_limit, central, upper_limit = get_bootstrap_interval(intervals)
+def generate_latex_interval_string(intervals, **kwargs):
+    lower_limit, central, upper_limit = get_bootstrap_interval(intervals, **kwargs)
     return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
 
 

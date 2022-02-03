@@ -35,8 +35,10 @@ jobs:
       with:
         password: ${{ secrets.PYPI_TOKEN_TEST }}
         repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
     - name: Publish distribution 📦 to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.PYPI_TOKEN }}
+        skip_existing: true

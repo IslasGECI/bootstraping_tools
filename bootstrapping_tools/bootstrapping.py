@@ -182,7 +182,7 @@ def get_bootstrap_interval(bootstrap_distribution, **kwargs):
 
         Args:
             bootstrap_distribution (ndarray): 95% bootstrap interval array.
-    ]
+    
         Returns:
             [List]: bootstrap interval differences
     """

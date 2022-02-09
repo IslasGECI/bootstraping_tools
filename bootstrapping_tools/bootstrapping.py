@@ -286,7 +286,7 @@ def mean_bootstrapped(data, N=2000):
 
 
 def remove_outlier(method, data, **kwargs):
-    """Function to select method to filter the outliers in data.
+    """Select method to filter the outliers in data.
 
     Args:
         method (string): Method to use to filter, available methods are "tukey" and "std" . Defaults to "tukey".

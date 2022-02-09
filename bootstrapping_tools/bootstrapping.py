@@ -48,7 +48,7 @@ def lambda_calculator(
 
 
 def remove_distribution_outliers(data, number_of_std=2.698):
-    """This function removes outliers from distribution using the standard deviation and a range
+    """Remove outliers from distribution using the standard deviation and a range
 
     Args:
         data (List or ndarray): Distribution samples to be filteredled

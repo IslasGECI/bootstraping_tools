@@ -65,7 +65,7 @@ def remove_distribution_outliers(data, number_of_std=2.698):
 
 
 def tukey_fences(data, fence_width=1.5):
-    """This function filters an array using Tukey fences method
+    """Filter an array using Tukey fences method
 
     Args:
         data (List or ndarray): Distribution samples to be filteredled

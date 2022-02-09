@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def power_law(time_interval, population_growth_rate, initial_population_size):
-    """This function represent a simple power lay of the type: f(y) = a*x^y
+    """This function represent a simple power law of the type: f(y) = a*x^y
 
     Args:
         time_interval (array): Time vector

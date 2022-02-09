@@ -180,11 +180,11 @@ def lambdas_bootstrap_from_dataframe(
 def get_bootstrap_interval(bootstrap_distribution, **kwargs):
     """Generate bootstrap interval differences for reports from 95% bootstrap interval array (2.5, 50 and 97.5 percentiles).
 
-        Args:
-            bootstrap_distribution (ndarray): 95% bootstrap interval array.
-    
-        Returns:
-            [List]: bootstrap interval differences
+    Args:
+        bootstrap_distribution (ndarray): 95% bootstrap interval array.
+
+    Returns:
+        [List]: bootstrap interval differences
     """
     inferior_limit = np.around(bootstrap_distribution[1] - bootstrap_distribution[0], **kwargs)
     superior_limit = np.around(bootstrap_distribution[2] - bootstrap_distribution[1], **kwargs)

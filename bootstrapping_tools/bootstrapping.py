@@ -14,7 +14,7 @@ def power_law(time_interval, population_growth_rate, initial_population_size):
         initial_population_size (int): Initial population size
 
     Returns:
-        Population growth in time interval
+        [ndarray]: Population growth in time interval
     """
     return initial_population_size * np.power(population_growth_rate, time_interval)
 
@@ -32,7 +32,7 @@ def lambda_calculator(
         lambda_upper_bound (int, optional):  Max lambda coefficient. Defaults to 50.
 
     Returns:
-        popt: The coefficients array for power_law (N0,lamda).
+        [ndarray]: The coefficients array for power_law (N0,lamda).
     """
     temporadas = np.array(temporadas)
     numero_agno = temporadas - temporadas[0]

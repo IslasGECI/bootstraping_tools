@@ -1,0 +1,49 @@
+name: Test on PR
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+jobs:
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@v2
+    - name: Construye imagen
+      run: docker build --tag bootstrapping_tools .
+    - name: Verifica el formato
+      run: docker run bootstrapping_tools make check
+    - name: Corre pruebas y evalúa cobertura
+      run: docker run bootstrapping_tools make coverage
+    - name: Evalúa resistencia a mutaciones
+      run: docker run bootstrapping_tools make mutants      
+  build-n-publish:
+    name: Build and publish Python 🐍 distributions 📦 to TestPyPI
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.9
+    - name: Install pypa/build
+      run: >-
+        python -m
+        pip install
+        build
+        --user
+    - name: Build a binary wheel and a source tarball
+      run: >-
+        python -m
+        build
+        --sdist
+        --wheel
+        --outdir dist/
+        .
+    - name: Publish distribution 📦 to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_TOKEN_TEST }}
+        repository_url: https://test.pypi.org/legacy/
+        skip_existing: true

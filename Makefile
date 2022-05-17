@@ -6,6 +6,7 @@ all: check coverage mutants
 		clean \
 		coverage \
 		format \
+		init \
 		install \
 		linter \
 		mutants \
@@ -47,8 +48,10 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
 
+init: install tests
+
 install:
-	pip install .
+	pip install --editable .
 
 linter:
 	$(call lint, ${module})

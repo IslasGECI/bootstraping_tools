@@ -133,11 +133,13 @@ def bootstrap_from_time_series(
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
+
 def _resample_data(dataframe, seed):
     resampled_data = dataframe.sample(
         n=len(dataframe), replace=True, random_state=seed
-        ).sort_index()
+    ).sort_index()
     return resampled_data
+
 
 def calculate_p_values(distribution):
     distribution = np.array(distribution)

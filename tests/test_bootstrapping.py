@@ -66,10 +66,26 @@ data_nest = pd.DataFrame(
     }
 )
 
+data_nest_with_outlier = pd.DataFrame(
+    {
+        "Temporada": [2018, 2019, 2020, 2018, 2019, 2020, 2018, 2019, 2020],
+        "Nest": [2.0, 3.9, 2050, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+    }
+)
+
 
 def test_lambdas_bootstrap_from_dataframe():
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
         data_nest, "Nest", N=20, remove_outliers=False
+    )
+    expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
+    are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()
+    assert are_close
+
+
+def test_lambdas_bootstrap_from_dataframe_removing_outliers():
+    obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
+        data_nest_with_outlier, "Nest", N=20, remove_outliers=True
     )
     expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
     are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()

@@ -307,4 +307,4 @@ def remove_outlier(method, data, **kwargs):
 
 
 def resample_data_by_blocks(original_sample):
-    return pd.DataFrame({"a": [1, 2, 1 , 2], "b": [4, 6, 4, 6]})
+    return pd.DataFrame({"a": [1, 2, 1, 2], "b": [4, 6, 4, 6]})

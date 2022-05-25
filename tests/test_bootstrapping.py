@@ -138,6 +138,7 @@ def test_remove_outlier():
 
 
 def test_resample_data_by_blocks():
-    expected = pd.DataFrame({"a": [1, 2, 3], "b": [4, 6, 8]})
-    obtained = resample_data_by_blocks()
+    data = pd.DataFrame({"a": [1, 2, 3], "b": [4, 6, 8]})
+    expected = pd.DataFrame({"a": [1, 2, 1, 2], "b": [4, 6, 4, 6]})
+    obtained = resample_data_by_blocks(data)
     assert_frame_equal(expected, obtained)

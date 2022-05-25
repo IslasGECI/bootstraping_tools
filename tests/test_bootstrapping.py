@@ -1,5 +1,6 @@
 import numpy as np
 from bootstrapping_tools import (
+    _resample_data_by_blocks,
     seasons_from_date,
     power_law,
     boostrapping_feature,
@@ -133,3 +134,8 @@ def test_remove_outlier():
     expected_data: np.array = np.append(np.ones(45), [2, 5])
     obtained_data = remove_outlier("std", data_original, number_of_std=5)
     np.testing.assert_array_equal(expected_data, obtained_data)
+
+
+def test_resample_data_by_blocks():
+    _resample_data_by_blocks()
+    assert True

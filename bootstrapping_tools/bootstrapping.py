@@ -304,3 +304,6 @@ def remove_outlier(method, data, **kwargs):
     assert method in outlier_method, "No se reconoce el método de filtrado"
     data = outlier_method[method](data, **kwargs)
     return data
+
+def resample_data_by_blocks():
+    pass

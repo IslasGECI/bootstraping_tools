@@ -1,18 +1,18 @@
 import numpy as np
 from bootstrapping_tools import (
-    _resample_data_by_blocks,
-    seasons_from_date,
-    power_law,
     boostrapping_feature,
-    get_bootstrap_interval,
+    bootstrap_from_time_series,
     calculate_p_values,
+    generate_latex_interval_string,
+    get_bootstrap_interval,
     lambda_calculator,
     lambdas_bootstrap_from_dataframe,
     lambdas_from_bootstrap_table,
-    generate_latex_interval_string,
     mean_bootstrapped,
-    bootstrap_from_time_series,
+    power_law,
     remove_outlier,
+    resample_data_by_blocks,
+    seasons_from_date,
 )
 import pandas as pd
 
@@ -137,5 +137,5 @@ def test_remove_outlier():
 
 
 def test_resample_data_by_blocks():
-    _resample_data_by_blocks()
+    resample_data_by_blocks()
     assert True

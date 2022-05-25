@@ -307,5 +307,6 @@ def remove_outlier(method, data, **kwargs):
 
 
 def resample_data_by_blocks(original_sample):
-    resample = original_sample.iloc[[0, 1, 0, 1], :]
+    rows = [0, 1, 0, 1]
+    resample = original_sample.loc[rows, :]
     return resample

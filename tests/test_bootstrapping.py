@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+from pandas.testing import assert_frame_equal
 from bootstrapping_tools import (
     boostrapping_feature,
     bootstrap_from_time_series,
@@ -14,7 +16,6 @@ from bootstrapping_tools import (
     resample_data_by_blocks,
     seasons_from_date,
 )
-import pandas as pd
 
 
 def test_seasons_from_date():
@@ -137,5 +138,6 @@ def test_remove_outlier():
 
 
 def test_resample_data_by_blocks():
-    resample_data_by_blocks()
-    assert True
+    expected = pd.DataFrame({"a": [1,2,3], "b": [4, 6, 8]})
+    obtained = resample_data_by_blocks()
+    assert_frame_equal(expected, obtained)

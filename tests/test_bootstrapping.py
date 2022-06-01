@@ -151,11 +151,14 @@ def test_resample_data_by_blocks():
 
 def test_get_rows():
     expected_rows = [0, 1, 0, 1]
-    obtained_rows = get_rows(0)
+    obtained_rows = get_rows([0,0])
     assert obtained_rows == expected_rows
     expected_rows = [0, 1, 1, 2]
-    obtained_rows = get_rows(1)
+    obtained_rows = get_rows([0,1])
     assert obtained_rows == expected_rows
     expected_rows = [1, 2, 1, 2]
-    obtained_rows = get_rows(1)
+    obtained_rows = get_rows([1,1])
+    assert obtained_rows == expected_rows
+    expected_rows = [1, 2, 0, 1]
+    obtained_rows = get_rows([1,0])
     assert obtained_rows == expected_rows

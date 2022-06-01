@@ -139,16 +139,22 @@ def test_remove_outlier():
 
 
 def test_resample_data_by_blocks():
+    block_numbers = [0, 0]
     data = pd.DataFrame({"a": [1, 2, 3], "b": [4, 6, 8]})
     expected = pd.DataFrame({"a": [1, 2, 1, 2], "b": [4, 6, 4, 6]})
-    obtained = resample_data_by_blocks(data)
-    assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
+    assert_resampled_by_blocks(block_numbers, data, expected)
     data = pd.DataFrame({"a": [10, 20, 30], "b": [40, 60, 80]})
     expected = pd.DataFrame({"a": [10, 20, 10, 20], "b": [40, 60, 40, 60]})
-    obtained = resample_data_by_blocks(data)
-    assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
+    assert_resampled_by_blocks(block_numbers, data, expected)
     expected = pd.DataFrame({"a": [10, 20, 20, 30], "b": [40, 60, 60, 80]})
-    obtained = resample_data_by_blocks(data)
+    block_numbers = [0, 1]
+    assert_resampled_by_blocks(block_numbers, data, expected)
+    expected = pd.DataFrame({"a": [20, 30, 10, 20], "b": [60, 80, 40, 60]})
+    block_numbers = [1, 0]
+    assert_resampled_by_blocks(block_numbers, data, expected)
+
+def assert_resampled_by_blocks(block_numbers, data, expected):
+    obtained = resample_data_by_blocks(data, block_numbers)
     assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
 
 

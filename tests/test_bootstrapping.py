@@ -152,6 +152,10 @@ def test_resample_data_by_blocks():
     expected = pd.DataFrame({"a": [20, 30, 10, 20], "b": [60, 80, 40, 60]})
     block_numbers = [1, 0]
     assert_resampled_by_blocks(block_numbers, data, expected)
+    block_numbers = [0, 0, 1]
+    data = pd.DataFrame({"a": [1, 2, 3, 4, 5], "b": [4, 6, 8, 10, 12]})
+    expected = pd.DataFrame({"a": [1, 2, 1, 2, 2, 3], "b": [4, 6, 4, 6, 6, 8]})
+    assert_resampled_by_blocks(block_numbers, data, expected)
 
 def assert_resampled_by_blocks(block_numbers, data, expected):
     obtained = resample_data_by_blocks(data, block_numbers)

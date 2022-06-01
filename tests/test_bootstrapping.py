@@ -156,3 +156,6 @@ def test_get_rows():
     expected_rows = [0, 1, 1, 2]
     obtained_rows = get_rows(1)
     assert obtained_rows == expected_rows
+    expected_rows = [1, 2, 1, 2]
+    obtained_rows = get_rows(1)
+    assert obtained_rows == expected_rows

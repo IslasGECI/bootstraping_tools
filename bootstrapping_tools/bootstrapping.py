@@ -313,7 +313,9 @@ def resample_data_by_blocks(original_sample, block_numbers):
 
 
 def get_rows(block_numbers):
-    aux = [0,1,2]
-    rows = [*aux[0+block_numbers[0]:2+block_numbers[0]], *aux[0+block_numbers[1]:2+block_numbers[1]]]
+    aux = [0, 1, 2]
+    rows = [
+        *aux[0 + block_numbers[0] : 2 + block_numbers[0]],
+        *aux[0 + block_numbers[1] : 2 + block_numbers[1]],
+    ]
     return rows
-

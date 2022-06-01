@@ -147,6 +147,9 @@ def test_resample_data_by_blocks():
     expected = pd.DataFrame({"a": [10, 20, 10, 20], "b": [40, 60, 40, 60]})
     obtained = resample_data_by_blocks(data)
     assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
+    expected = pd.DataFrame({"a": [10, 20, 20, 30], "b": [40, 60, 60, 80]})
+    obtained = resample_data_by_blocks(data)
+    assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
 
 
 def test_get_rows():

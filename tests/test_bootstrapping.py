@@ -15,6 +15,7 @@ from bootstrapping_tools import (
     remove_outlier,
     resample_data_by_blocks,
     seasons_from_date,
+    get_rows,
 )
 
 
@@ -146,3 +147,12 @@ def test_resample_data_by_blocks():
     expected = pd.DataFrame({"a": [10, 20, 10, 20], "b": [40, 60, 40, 60]})
     obtained = resample_data_by_blocks(data)
     assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
+
+
+def test_get_rows():
+    expected_rows = [0, 1, 0, 1]
+    obtained_rows = get_rows(0)
+    assert obtained_rows == expected_rows
+    expected_rows = [0, 1, 1, 2]
+    obtained_rows = get_rows(1)
+    assert obtained_rows == expected_rows

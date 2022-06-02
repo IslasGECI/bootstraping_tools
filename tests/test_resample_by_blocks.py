@@ -31,8 +31,8 @@ def test_resample_data_by_blocks_of_size_3():
     blocks_length = 3
     block_labels = [0, 1]
     block_size_3 = Tester_By_Size_Blocks(block_labels, blocks_length)
-    data = pd.DataFrame({"a": [1, 2, 3, 4, 5], "b": [4, 6, 8, 10, 12]})
-    expected = pd.DataFrame({"a": [1, 2, 3, 2, 3, 4], "b": [4, 6, 8, 6, 8, 10]})
+    data = _data_from_columns([1, 2, 3, 4, 5], [4, 6, 8, 10, 12])
+    expected = _data_from_columns([1, 2, 3, 2, 3, 4], [4, 6, 8, 6, 8, 10])
     block_size_3.assert_resampled_by_blocks(data, expected)
 
 
@@ -49,3 +49,7 @@ class Tester_By_Size_Blocks:
     def assert_resampled_by_blocks(self, data, expected):
         obtained = resample_data_by_blocks(data, self.block_labels, self.blocks_length)
         assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
+
+
+def _data_from_columns(column_a, column_b):
+    return pd.DataFrame({"a": column_a, "b": column_b})

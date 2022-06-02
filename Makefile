@@ -10,6 +10,8 @@ all: check coverage mutants
 		install \
 		linter \
 		mutants \
+		mutants_bootstrapping \
+		mutants_by_blocks \
 		tests
 
 module = bootstrapping_tools
@@ -59,6 +61,12 @@ linter:
 
 mutants: install
 	mutmut run --paths-to-mutate ${module}
+
+mutants_bootstrapping: install
+	mutmut run --paths-to-mutate bootstrapping_tools/bootstrapping.py
+
+mutants_by_blocks: install
+	mutmut run --paths-to-mutate bootstrapping_tools/resample_by_blocks.py
 
 tests: install
 	pytest --verbose

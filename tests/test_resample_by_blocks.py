@@ -7,15 +7,15 @@ from bootstrapping_tools import (
 
 
 def test_resample_data_by_blocks():
-    blocks_length = 2
-    block_labels = [0, 2, 3]
-    block_size_2 = Tester_By_Size_Blocks(block_labels, blocks_length)
-    block_size_2.set_expected([10, 20, 30, 40, 40, 50], [600, 700, 800, 900, 900, 1000])
-    block_size_2.assert_resampled_by_blocks()
     blocks_length = 3
+    block_labels = [0, 2]
+    block_size_3 = Tester_By_Size_Blocks(block_labels, blocks_length)
+    block_size_3.set_expected([10, 20, 30, 30, 40, 50], [600, 700, 800, 800, 900, 1000])
+    block_size_3.assert_resampled_by_blocks()
+    blocks_length = 4
     block_labels = [0, 1]
     block_size_3 = Tester_By_Size_Blocks(block_labels, blocks_length)
-    block_size_3.set_expected([10, 20, 30, 20, 30, 40], [600, 700, 800, 700, 800, 900])
+    block_size_3.set_expected([10, 20, 30, 40, 20, 30, 40, 50], [600, 700, 800, 900, 700, 800, 900, 1000])
     block_size_3.assert_resampled_by_blocks()
 
 

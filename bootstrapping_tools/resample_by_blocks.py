@@ -3,12 +3,12 @@ import numpy as np
 
 def resample_data_by_blocks(original_sample, block_labels, blocks_length):
     n_rows_original = len(original_sample)
-    rows = get_rows(block_labels, n_rows_original, blocks_length)
+    rows = _get_rows(block_labels, n_rows_original, blocks_length)
     resample = original_sample.loc[rows, :]
     return resample
 
 
-def get_rows(block_labels, n_rows_data, blocks_length):
+def _get_rows(block_labels, n_rows_data, blocks_length):
     aux = np.arange(n_rows_data)
     rows = []
     for i in block_labels:

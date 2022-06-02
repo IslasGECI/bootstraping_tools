@@ -176,15 +176,16 @@ def assert_resampled_by_blocks(block_numbers, data, expected, blocks_length):
 
 
 def test_get_rows():
+    blocks_length = 2
     expected_rows = [0, 1, 0, 1]
-    obtained_rows = get_rows([0, 0], 3)
+    obtained_rows = get_rows([0, 0], 3, blocks_length)
     assert obtained_rows == expected_rows
     expected_rows = [0, 1, 1, 2]
-    obtained_rows = get_rows([0, 1], 3)
+    obtained_rows = get_rows([0, 1], 3, blocks_length)
     assert obtained_rows == expected_rows
     expected_rows = [1, 2, 1, 2]
-    obtained_rows = get_rows([1, 1], 3)
+    obtained_rows = get_rows([1, 1], 3, blocks_length)
     assert obtained_rows == expected_rows
     expected_rows = [1, 2, 0, 1]
-    obtained_rows = get_rows([1, 0], 3)
+    obtained_rows = get_rows([1, 0], 3, blocks_length)
     assert obtained_rows == expected_rows

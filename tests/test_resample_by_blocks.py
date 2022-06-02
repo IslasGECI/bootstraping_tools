@@ -9,9 +9,6 @@ from bootstrapping_tools import (
 def test_resample_data_by_blocks():
     blocks_length = 2
     block_numbers = [0, 0]
-    data = pd.DataFrame({"a": [1, 2, 3], "b": [4, 6, 8]})
-    expected = pd.DataFrame({"a": [1, 2, 1, 2], "b": [4, 6, 4, 6]})
-    assert_resampled_by_blocks(block_numbers, data, expected, blocks_length)
     data = pd.DataFrame({"a": [10, 20, 30], "b": [40, 60, 80]})
     expected = pd.DataFrame({"a": [10, 20, 10, 20], "b": [40, 60, 40, 60]})
     assert_resampled_by_blocks(block_numbers, data, expected, blocks_length)
@@ -41,19 +38,3 @@ def test_resample_data_by_blocks_of_size_3():
 def assert_resampled_by_blocks(block_numbers, data, expected, blocks_length):
     obtained = resample_data_by_blocks(data, block_numbers, blocks_length)
     assert_frame_equal(expected.reset_index(drop=True), obtained.reset_index(drop=True))
-
-
-def test_get_rows():
-    blocks_length = 2
-    expected_rows = [0, 1, 0, 1]
-    obtained_rows = get_rows([0, 0], 3, blocks_length)
-    assert obtained_rows == expected_rows
-    expected_rows = [0, 1, 1, 2]
-    obtained_rows = get_rows([0, 1], 3, blocks_length)
-    assert obtained_rows == expected_rows
-    expected_rows = [1, 2, 1, 2]
-    obtained_rows = get_rows([1, 1], 3, blocks_length)
-    assert obtained_rows == expected_rows
-    expected_rows = [1, 2, 0, 1]
-    obtained_rows = get_rows([1, 0], 3, blocks_length)
-    assert obtained_rows == expected_rows

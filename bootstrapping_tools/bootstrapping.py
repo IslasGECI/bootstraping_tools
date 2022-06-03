@@ -219,9 +219,7 @@ def bootstrap_from_time_series(
     rand = 0
     print("Calculating bootstrap growth rates distribution:")
     while cont < N:
-        resampled_data = dataframe.sample(
-            n=len(dataframe), replace=True, random_state=rand
-        ).sort_index()
+        resampled_data = _resample_data(dataframe, rand)
         try:
             fitting_result = lambda_calculator(
                 resampled_data["Temporada"], resampled_data[column_name]
@@ -237,6 +235,13 @@ def bootstrap_from_time_series(
     if return_distribution:
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+
+
+def _resample_data(dataframe, seed):
+    resampled_data = dataframe.sample(
+        n=len(dataframe), replace=True, random_state=seed
+    ).sort_index()
+    return resampled_data
 
 
 def calculate_p_values(distribution):

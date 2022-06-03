@@ -6,9 +6,12 @@ all: check coverage mutants
 		clean \
 		coverage \
 		format \
+		init \
 		install \
 		linter \
 		mutants \
+		mutants_bootstrapping \
+		mutants_by_blocks \
 		tests
 
 module = bootstrapping_tools
@@ -47,8 +50,10 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
 
+init: install tests
+
 install:
-	pip install .
+	pip install --editable .
 
 linter:
 	$(call lint, ${module})
@@ -56,6 +61,12 @@ linter:
 
 mutants: install
 	mutmut run --paths-to-mutate ${module}
+
+mutants_bootstrapping: install
+	mutmut run --paths-to-mutate bootstrapping_tools/bootstrapping.py
+
+mutants_by_blocks: install
+	mutmut run --runner "pytest tests/test_resample_by_blocks.py" --paths-to-mutate bootstrapping_tools/resample_by_blocks.py 
 
 tests: install
 	pytest --verbose

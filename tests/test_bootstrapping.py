@@ -1,19 +1,19 @@
 import numpy as np
+import pandas as pd
 from bootstrapping_tools import (
-    seasons_from_date,
-    power_law,
     boostrapping_feature,
-    get_bootstrap_interval,
+    bootstrap_from_time_series,
     calculate_p_values,
+    generate_latex_interval_string,
+    get_bootstrap_interval,
     lambda_calculator,
     lambdas_bootstrap_from_dataframe,
     lambdas_from_bootstrap_table,
-    generate_latex_interval_string,
     mean_bootstrapped,
-    bootstrap_from_time_series,
+    power_law,
     remove_outlier,
+    seasons_from_date,
 )
-import pandas as pd
 
 
 def test_seasons_from_date():
@@ -70,6 +70,15 @@ data_nest = pd.DataFrame(
 def test_lambdas_bootstrap_from_dataframe():
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
         data_nest, "Nest", N=20, remove_outliers=False
+    )
+    expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
+    are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()
+    assert are_close
+
+
+def test_lambdas_bootstrap_from_dataframe_removing_outliers():
+    obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
+        data_nest, "Nest", N=20, remove_outliers=True
     )
     expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
     are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()

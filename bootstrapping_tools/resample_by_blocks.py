@@ -9,7 +9,7 @@ def resample_data_by_blocks(original_sample, block_labels, blocks_length):
 
 
 def _get_rows(block_labels, n_rows_data, blocks_length):
-    blocks_number = np.ceil(n_rows_data/blocks_length)
+    blocks_number = np.ceil(n_rows_data / blocks_length)
     lenght_block_labels = len(block_labels)
     assert lenght_block_labels <= blocks_number
     aux = np.arange(n_rows_data)

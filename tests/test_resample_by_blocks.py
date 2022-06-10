@@ -28,10 +28,13 @@ def test_resample_data_by_blocks():
 
 def test_length_block_labels():
     blocks_length = 5
-    block_labels = [0, 1]
+    block_labels = [0]
     block_size_4 = Tester_By_Size_Blocks(block_labels, blocks_length)
     block_size_4.set_expected([10, 20, 30, 40, 50], [600, 700, 800, 900, 1000])
-    block_size_4.assert_resampled_by_blocks()
+    n_rows_data = len(block_size_4.data)
+    blocks_number = np.ceil(n_rows_data / blocks_length)
+    lenght_block_labels = len(block_labels)
+    assert lenght_block_labels <= blocks_number
 
 
 class Tester_By_Size_Blocks:

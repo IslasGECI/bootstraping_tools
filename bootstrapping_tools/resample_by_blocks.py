@@ -1,4 +1,14 @@
 import numpy as np
+import random
+
+
+def random_resample_data_by_blocks(original_sample, blocks_length):
+    n_rows_original = len(original_sample)
+    block_labels = _get_labels(n_rows_original, blocks_length)
+    block_labels = random.choices(block_labels, k = len(block_labels))
+    rows = _get_rows(block_labels, n_rows_original, blocks_length)
+    resample = original_sample.loc[rows, :]
+    return resample
 
 
 def resample_data_by_blocks(original_sample, blocks_length):

@@ -3,6 +3,7 @@ import numpy as np
 from pandas.testing import assert_frame_equal
 from bootstrapping_tools import (
     resample_data_by_blocks,
+    random_resample_data_by_blocks
 )
 
 
@@ -22,6 +23,13 @@ def test_resample_data_by_blocks():
     )
     block_size_4.assert_resampled_by_blocks()
 
+def test_random_resample_data_by_blocks():
+    blocks_length = 4
+    block_size_4 = Tester_By_Size_Blocks(blocks_length)
+    block_size_4.set_expected(
+        [10, 20, 30, 40, 20, 30, 40, 50], [600, 700, 800, 900, 700, 800, 900, 1000]
+    )
+    block_size_4.assert_random_resampled_by_blocks()
 
 def test_length_block_labels():
     blocks_length = 5
@@ -42,6 +50,10 @@ class Tester_By_Size_Blocks:
 
     def assert_resampled_by_blocks(self):
         obtained = resample_data_by_blocks(self.data, self.blocks_length)
+        assert_frame_equal(self.expected.reset_index(drop=True), obtained.reset_index(drop=True))
+
+    def assert_random_resampled_by_blocks(self):
+        obtained = random_resample_data_by_blocks(self.data, self.blocks_length)
         assert_frame_equal(self.expected.reset_index(drop=True), obtained.reset_index(drop=True))
 
     def set_expected(self, column_a, column_b):

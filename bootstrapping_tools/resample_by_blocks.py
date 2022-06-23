@@ -11,7 +11,7 @@ def resample_data_by_blocks(original_sample, blocks_length):
 
 def _get_labels(n_rows_original, blocks_length):
     blocks_number = np.ceil(n_rows_original / blocks_length)
-    block_labels = np.arange(blocks_number)
+    block_labels = np.arange(blocks_number, dtype=int)
     return block_labels
 
 

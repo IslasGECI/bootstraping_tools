@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal
-from bootstrapping_tools import (
-    resample_data_by_blocks,
-    random_resample_data_by_blocks
-)
+from bootstrapping_tools import resample_data_by_blocks, random_resample_data_by_blocks
 
 
 def test_resample_data_by_blocks():
@@ -23,6 +20,7 @@ def test_resample_data_by_blocks():
     )
     block_size_4.assert_resampled_by_blocks()
 
+
 def test_random_resample_data_by_blocks():
     blocks_length = 4
     block_size_4 = Tester_By_Size_Blocks(blocks_length)
@@ -30,6 +28,7 @@ def test_random_resample_data_by_blocks():
         [10, 20, 30, 40, 20, 30, 40, 50], [600, 700, 800, 900, 700, 800, 900, 1000]
     )
     block_size_4.assert_random_resampled_by_blocks()
+
 
 def test_length_block_labels():
     blocks_length = 5

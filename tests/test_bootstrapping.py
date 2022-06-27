@@ -12,6 +12,7 @@ from bootstrapping_tools import (
     mean_bootstrapped,
     power_law,
     remove_outlier,
+    remove_distribution_outliers,
     seasons_from_date,
 )
 
@@ -133,3 +134,11 @@ def test_remove_outlier():
     expected_data: np.array = np.append(np.ones(45), [2, 5])
     obtained_data = remove_outlier("std", data_original, number_of_std=5)
     np.testing.assert_array_equal(expected_data, obtained_data)
+
+
+def test_remove_distribution_outliers():
+    data_with_outliers = np.append(np.ones(100), np.arange(10))
+    length_expected = 105
+    obtained_data = remove_distribution_outliers(data_with_outliers)
+    length_obtained_data = len(obtained_data)
+    assert length_obtained_data == length_expected

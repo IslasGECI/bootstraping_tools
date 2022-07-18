@@ -14,8 +14,6 @@ from bootstrapping_tools import (
     remove_outlier,
     remove_distribution_outliers,
     seasons_from_date,
-    resample_data,
-    aux_resample_data
 )
 
 
@@ -69,12 +67,6 @@ data_nest = pd.DataFrame(
     }
 )
 
-def test_resample_data():
-    obtained = resample_data(data_nest, 2)
-    obtained_2 = aux_resample_data(data_nest, 2)
-    assert False
-
-
 def test_lambdas_bootstrap_from_dataframe():
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
         data_nest, "Nest", N=20, remove_outliers=False
@@ -102,7 +94,7 @@ def test_bootstrap_from_time_series():
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest, "Nest", N=100, remove_outliers=False
     )
-    expected_bootstrap_from_time_series = np.array([1.78180307, 1.82117423, 1.94509028])
+    expected_bootstrap_from_time_series = np.array([1.77056253, 1.79716642, 1.82920025])
     are_close = np.isclose(
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()

@@ -238,9 +238,11 @@ def bootstrap_from_time_series(
         return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
-def resample_data(dataframe, seed, blocks_length = 2):
+
+def resample_data(dataframe, seed, blocks_length=2):
     random.seed(seed)
-    return random_resample_data_by_blocks(dataframe, blocks_length) 
+    return random_resample_data_by_blocks(dataframe, blocks_length)
+
 
 def calculate_p_values(distribution):
     """Calculate p-values based on proportion of samples greater than 1, and below 1.0

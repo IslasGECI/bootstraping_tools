@@ -67,6 +67,7 @@ data_nest = pd.DataFrame(
     }
 )
 
+
 def test_lambdas_bootstrap_from_dataframe():
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
         data_nest, "Nest", N=20, remove_outliers=False

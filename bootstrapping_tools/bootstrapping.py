@@ -241,7 +241,7 @@ def bootstrap_from_time_series(
 
 def resample_data(dataframe, seed, blocks_length=2):
     random.seed(seed)
-    return random_resample_data_by_blocks(dataframe, blocks_length)
+    return random_resample_data_by_blocks(dataframe, blocks_length).sort_index()
 
 
 def calculate_p_values(distribution):

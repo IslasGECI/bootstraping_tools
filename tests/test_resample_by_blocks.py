@@ -55,7 +55,7 @@ class Tester_By_Size_Blocks:
 
     def assert_random_resampled_by_blocks(self):
         obtained = random_resample_data_by_blocks(self.data, self.blocks_length)
-        assert_frame_equal(self.expected.reset_index(drop=True), obtained.reset_index(drop=True))
+        assert_frame_equal(self.expected.reset_index(drop=True), obtained)
 
     def set_expected(self, column_a, column_b):
         self.expected = self._data_from_columns(column_a, column_b)

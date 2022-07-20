@@ -12,6 +12,7 @@ from bootstrapping_tools import (
     mean_bootstrapped,
     power_law,
     remove_outlier,
+    remove_distribution_outliers,
     seasons_from_date,
 )
 
@@ -92,13 +93,13 @@ def test_get_bootstrap_interval():
 
 def test_bootstrap_from_time_series():
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
-        data_nest, "Nest", N=20, remove_outliers=False
+        data_nest, "Nest", N=100, remove_outliers=False
     )
-    expected_bootstrap_from_time_series = np.array([1.78180307, 1.82117423, 1.94509028])
+    expected_bootstrap_from_time_series = np.array([1.77056253, 1.79716642, 1.82920025])
     are_close = np.isclose(
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()
-    assert are_close
+    assert are_close, "Intervalo del 95% difiere"
 
 
 def test_calculate_p_values():
@@ -133,3 +134,11 @@ def test_remove_outlier():
     expected_data: np.array = np.append(np.ones(45), [2, 5])
     obtained_data = remove_outlier("std", data_original, number_of_std=5)
     np.testing.assert_array_equal(expected_data, obtained_data)
+
+
+def test_remove_distribution_outliers():
+    data_with_outliers = np.append(np.ones(100), np.arange(10))
+    length_expected = 105
+    obtained_data = remove_distribution_outliers(data_with_outliers)
+    length_obtained_data = len(obtained_data)
+    assert length_obtained_data == length_expected

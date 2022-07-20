@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
+import random
 
+from .resample_by_blocks import random_resample_data_by_blocks
 from scipy.optimize import curve_fit
 from tqdm import tqdm
 
@@ -199,6 +201,7 @@ def bootstrap_from_time_series(
     return_distribution=False,
     remove_outliers=True,
     outlier_method="tukey",
+    blocks_length=2,
     **kwargs,
 ):
     """Calculate 95% bootstrap intervals for lambda coefficient in population growth model from timeseries data.
@@ -219,7 +222,7 @@ def bootstrap_from_time_series(
     rand = 0
     print("Calculating bootstrap growth rates distribution:")
     while cont < N:
-        resampled_data = _resample_data(dataframe, rand)
+        resampled_data = resample_data(dataframe, rand, blocks_length)
         try:
             fitting_result = lambda_calculator(
                 resampled_data["Temporada"], resampled_data[column_name]
@@ -237,11 +240,9 @@ def bootstrap_from_time_series(
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
-def _resample_data(dataframe, seed):
-    resampled_data = dataframe.sample(
-        n=len(dataframe), replace=True, random_state=seed
-    ).sort_index()
-    return resampled_data
+def resample_data(dataframe, seed, blocks_length):
+    random.seed(seed)
+    return random_resample_data_by_blocks(dataframe, blocks_length)
 
 
 def calculate_p_values(distribution):

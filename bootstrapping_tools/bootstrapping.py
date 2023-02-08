@@ -277,7 +277,7 @@ def generate_latex_interval_string(intervals, deltas=True, **kwargs):
         lower_limit, central, upper_limit = get_bootstrap_deltas(intervals, **kwargs)
         return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
     rounded_intervals = np.around(intervals, **kwargs)
-    return f"{rounded_intervals[1]} ({rounded_intervals[0]}, {rounded_intervals[2]})"
+    return f"{rounded_intervals[1]} ({rounded_intervals[0]} - {rounded_intervals[2]})"
 
 
 def mean_bootstrapped(data, N=2000):

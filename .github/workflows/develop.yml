@@ -25,6 +25,8 @@ jobs:
     - name: Sube sha a Docker Hub
       run: docker push islasgeci/bootstrapping_tools:${GITHUB_SHA:0:4}
   mutants:
+    runs-on: ubuntu-latest
+    steps:
     - name: Evalúa resistencia a mutaciones
       run: docker run islasgeci/bootstrapping_tools:latest make mutants
   build-n-publish:

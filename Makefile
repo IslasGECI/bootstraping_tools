@@ -68,5 +68,5 @@ mutants_bootstrapping: install
 mutants_by_blocks: install
 	mutmut run --runner "pytest tests/test_resample_by_blocks.py" --paths-to-mutate bootstrapping_tools/resample_by_blocks.py 
 
-tests: install
+tests:
 	pytest --verbose

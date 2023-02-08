@@ -15,8 +15,6 @@ jobs:
       run: docker run islasgeci/bootstrapping_tools:latest make check
     - name: Corre pruebas y evalúa cobertura
       run: docker run islasgeci/bootstrapping_tools:latest make coverage
-    - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/bootstrapping_tools:latest make mutants
     - name: Docker log-in
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -26,6 +24,9 @@ jobs:
       run: docker push islasgeci/bootstrapping_tools:latest
     - name: Sube sha a Docker Hub
       run: docker push islasgeci/bootstrapping_tools:${GITHUB_SHA:0:4}
+  mutants:
+    - name: Evalúa resistencia a mutaciones
+      run: docker run islasgeci/bootstrapping_tools:latest make mutants
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-latest

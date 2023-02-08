@@ -202,6 +202,7 @@ def bootstrap_from_time_series(
     remove_outliers=True,
     outlier_method="tukey",
     blocks_length=2,
+    alpha=0.05,
     **kwargs,
 ):
     """Calculate 95% bootstrap intervals for lambda coefficient in population growth model from timeseries data.
@@ -235,9 +236,12 @@ def bootstrap_from_time_series(
         rand += 1
     if remove_outliers:
         lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
+    half_alpha = alpha * 100 / 2
     if return_distribution:
-        return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+        return lambdas_bootstraps, np.percentile(
+            lambdas_bootstraps, [half_alpha, 50, 100 - half_alpha]
+        )
+    return np.percentile(lambdas_bootstraps, [half_alpha, 50, 100 - half_alpha])
 
 
 def resample_data(dataframe, seed, blocks_length):

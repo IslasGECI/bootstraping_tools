@@ -100,6 +100,15 @@ def test_bootstrap_from_time_series():
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()
     assert are_close, "Intervalo del 95% difiere"
+    obtained_bootstrap_from_time_series = bootstrap_from_time_series(
+        data_nest, "Nest", N=100, remove_outliers=False, alpha=0.1
+    )
+    expected_bootstrap_from_time_series = np.array([1.77824223, 1.79716642, 1.82171091])
+    print(obtained_bootstrap_from_time_series)
+    are_close = np.isclose(
+        expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
+    ).all()
+    assert are_close, "Intervalo del 95% difiere"
 
 
 def test_calculate_p_values():

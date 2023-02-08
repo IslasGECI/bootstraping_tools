@@ -124,13 +124,13 @@ def test_generate_latex_interval_string():
     obtained_latex_deltas_string = generate_latex_interval_string(interval_from_original_data)
     assert expected_latex_deltas_string == obtained_latex_deltas_string
 
-    expected_latex_interval_string = "2.0 (2.0, 2.0)"
+    expected_latex_interval_string = "2.0 (2.0 - 2.0)"
     obtained_latex_interval_string = generate_latex_interval_string(
         interval_from_original_data, deltas=False
     )
     assert expected_latex_interval_string == obtained_latex_interval_string
 
-    expected_latex_interval_string = "1.8 (1.78, 1.82)"
+    expected_latex_interval_string = "1.8 (1.78 - 1.82)"
     obtained_latex_interval_string = generate_latex_interval_string(
         interval_from_original_data, deltas=False, decimals=2
     )

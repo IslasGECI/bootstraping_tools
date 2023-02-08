@@ -5,7 +5,7 @@ from bootstrapping_tools import (
     bootstrap_from_time_series,
     calculate_p_values,
     generate_latex_interval_string,
-    get_bootstrap_interval,
+    get_bootstrap_deltas,
     lambda_calculator,
     lambdas_bootstrap_from_dataframe,
     lambdas_from_bootstrap_table,
@@ -86,8 +86,8 @@ def test_lambdas_bootstrap_from_dataframe_removing_outliers():
     assert are_close
 
 
-def test_get_bootstrap_interval():
-    output = get_bootstrap_interval(data_original)
+def test_get_bootstrap_deltas():
+    output = get_bootstrap_deltas(data_original)
     assert output == [0, 1, 0]
 
 
@@ -108,7 +108,7 @@ def test_bootstrap_from_time_series():
     are_close = np.isclose(
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()
-    assert are_close, "Intervalo del 95% difiere"
+    assert are_close, "Intervalo del 90% difiere"
 
 
 def test_calculate_p_values():
@@ -118,8 +118,22 @@ def test_calculate_p_values():
 
 
 def test_generate_latex_interval_string():
-    expected_latex_interval_string = "${1.0}_{-0.0}^{+0.0}$"
-    obtained_latex_interval_string = generate_latex_interval_string(data_original)
+    interval_from_original_data = np.array([1.77824223, 1.79716642, 1.82171091])
+
+    expected_latex_deltas_string = "${2.0}_{-0.0}^{+0.0}$"
+    obtained_latex_deltas_string = generate_latex_interval_string(interval_from_original_data)
+    assert expected_latex_deltas_string == obtained_latex_deltas_string
+
+    expected_latex_interval_string = "2.0 (2.0, 2.0)"
+    obtained_latex_interval_string = generate_latex_interval_string(
+        interval_from_original_data, deltas=False
+    )
+    assert expected_latex_interval_string == obtained_latex_interval_string
+
+    expected_latex_interval_string = "1.8 (1.78, 1.82)"
+    obtained_latex_interval_string = generate_latex_interval_string(
+        interval_from_original_data, deltas=False, decimals=2
+    )
     assert expected_latex_interval_string == obtained_latex_interval_string
 
 

@@ -179,7 +179,7 @@ def lambdas_bootstrap_from_dataframe(
     return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
 
 
-def get_bootstrap_interval(bootstrap_distribution, **kwargs):
+def get_bootstrap_deltas(bootstrap_distribution, **kwargs):
     """Generate bootstrap interval differences for reports from 95% bootstrap interval array (2.5, 50 and 97.5 percentiles).
 
     Args:
@@ -264,7 +264,7 @@ def calculate_p_values(distribution):
     return mask.sum() / len(distribution), mask2.sum() / len(distribution)
 
 
-def generate_latex_interval_string(intervals, **kwargs):
+def generate_latex_interval_string(intervals, deltas=True, **kwargs):
     """Genetare string for 95% interval in equation latex notation from 95% bootstrap interval array.
 
     Args:
@@ -273,8 +273,11 @@ def generate_latex_interval_string(intervals, **kwargs):
     Returns:
         [string]: Interval equation string format for latex.
     """
-    lower_limit, central, upper_limit = get_bootstrap_interval(intervals, **kwargs)
-    return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
+    if deltas:
+        lower_limit, central, upper_limit = get_bootstrap_deltas(intervals, **kwargs)
+        return f"${{{central}}}_{{-{lower_limit}}}^{{+{upper_limit}}}$"
+    rounded_intervals = np.around(intervals, **kwargs)
+    return f"{rounded_intervals[1]} ({rounded_intervals[0]}, {rounded_intervals[2]})"
 
 
 def mean_bootstrapped(data, N=2000):

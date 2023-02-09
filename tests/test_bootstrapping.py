@@ -103,9 +103,15 @@ def test_bootstrap_from_time_series():
     assert are_close, "Intervalo del 95% difiere"
 
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
-        data_nest, "Nest", N=100, remove_outliers=False, two_tales=False,
+        data_nest,
+        "Nest",
+        N=100,
+        remove_outliers=False,
+        two_tales=False,
     )
-    is_same_middle_value = np.isclose(expected_bootstrap_from_time_series[1], obtained_bootstrap_from_time_series[1], rtol=1e-5)
+    is_same_middle_value = np.isclose(
+        expected_bootstrap_from_time_series[1], obtained_bootstrap_from_time_series[1], rtol=1e-5
+    )
     assert is_same_middle_value
     lower_limit = obtained_bootstrap_from_time_series[0] > expected_bootstrap_from_time_series[0]
     upper_limit = obtained_bootstrap_from_time_series[2] > expected_bootstrap_from_time_series[2]
@@ -122,10 +128,17 @@ def test_bootstrap_from_time_series():
     ).all()
     assert are_close, "Intervalo del 90% difiere"
 
+
 def test_calculate_limits_from_p_values_and_alpha():
-    p_values = (0.727, 1-0.727)
+    p_values = (0.727, 1 - 0.727)
     alpha = 0.1
-    calculate_limits_from_p_values_and_alpha(p_values, alpha)
+    obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
+    expected_limits = [5, 50, 95]
+    assert obtained_limits == expected_limits
+    p_values = (0.727, 0.05)
+    obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
+    expected_limits = [10, 50, 99]
+    assert obtained_limits == expected_limits
 
 
 def test_calculate_p_values():

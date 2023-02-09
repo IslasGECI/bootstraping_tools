@@ -262,10 +262,10 @@ def calculate_limits_from_p_values_and_alpha(p_values, alpha):
 
 
 def choose_type_of_limits_from_p_values(p_values, alpha):
-    is_lambda_less_than_one = p_values[0] < alpha
+    is_lambda_less_than_one = p_values[1] < alpha
     if is_lambda_less_than_one:
         return "lower"
-    is_lambda_greater_than_one = p_values[1] < alpha
+    is_lambda_greater_than_one = p_values[0] < alpha
     if is_lambda_greater_than_one:
         return "upper"
     return "central"

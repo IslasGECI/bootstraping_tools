@@ -115,18 +115,18 @@ def test_bootstrap_from_time_series():
 
 
 def test_calculate_limits_from_p_values_and_alpha():
-    p_values = (0.727, 1 - 0.727)
     alpha = 0.1
+    p_values = (0.727, 1 - 0.727)
     obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
     expected_limits = [5, 50, 95]
     assert obtained_limits == expected_limits
     p_values = (0.727, 0.05)
     obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
-    expected_limits = [10, 50, 99]
+    expected_limits = [1, 50, 90]
     assert obtained_limits == expected_limits
     p_values = (0.05, 0.727)
     obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
-    expected_limits = [1, 50, 90]
+    expected_limits = [10, 50, 99]
     assert obtained_limits == expected_limits
 
 
@@ -134,10 +134,10 @@ def test_choose_type_of_limits_from_p_values_and_alpha():
     p_values = (0.05, 0.727)
     alpha = 0.1
     type_of_limits = choose_type_of_limits_from_p_values(p_values, alpha)
-    assert type_of_limits == "lower"
+    assert type_of_limits == "upper"
     p_values = (0.727, 0.05)
     type_of_limits = choose_type_of_limits_from_p_values(p_values, alpha)
-    assert type_of_limits == "upper"
+    assert type_of_limits == "lower"
     p_values = (0.727, 1 - 0.727)
     type_of_limits = choose_type_of_limits_from_p_values(p_values, alpha)
     assert type_of_limits == "central"

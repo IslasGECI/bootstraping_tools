@@ -242,9 +242,11 @@ def bootstrap_from_time_series(
         half_alpha = alpha * 100 / 2
         intervals = [half_alpha, 50, 100 - half_alpha]
     if return_distribution:
-        return lambdas_bootstraps, np.percentile(lambdas_bootstraps, intervals)
-    return np.percentile(lambdas_bootstraps, intervals)
+        return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, intervals)
+    return _calculate_intevals(lambdas_bootstraps, intervals)
 
+def _calculate_intevals(lambdas_distribution, limits):
+    return np.percentile(lambdas_distribution, limits)
 
 def resample_data(dataframe, seed, blocks_length):
     random.seed(seed)

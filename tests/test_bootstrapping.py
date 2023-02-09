@@ -104,22 +104,6 @@ def test_bootstrap_from_time_series():
     assert are_close, "Intervalo del 95% difiere"
 
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
-        data_nest,
-        "Nest",
-        N=100,
-        remove_outliers=False,
-        two_tales=False,
-    )
-    is_same_middle_value = np.isclose(
-        expected_bootstrap_from_time_series[1], obtained_bootstrap_from_time_series[1], rtol=1e-5
-    )
-    assert is_same_middle_value
-    lower_limit = obtained_bootstrap_from_time_series[0] > expected_bootstrap_from_time_series[0]
-    upper_limit = obtained_bootstrap_from_time_series[2] > expected_bootstrap_from_time_series[2]
-    extremes_are_higher = lower_limit and upper_limit
-    assert extremes_are_higher
-
-    obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest, "Nest", N=100, remove_outliers=False, alpha=0.1
     )
     expected_bootstrap_from_time_series = np.array([1.77824223, 1.79716642, 1.82171091])

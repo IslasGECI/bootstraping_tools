@@ -203,7 +203,6 @@ def bootstrap_from_time_series(
     outlier_method="tukey",
     blocks_length=2,
     alpha=0.05,
-    two_tales=True,
     **kwargs,
 ):
     """Calculate 95% bootstrap intervals for lambda coefficient in population growth model from timeseries data.
@@ -237,18 +236,10 @@ def bootstrap_from_time_series(
         rand += 1
     if remove_outliers:
         lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
-    limits = _calculate_limits_from_alpha(alpha, two_tales=two_tales)
+    limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
         return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)
     return _calculate_intevals(lambdas_bootstraps, limits)
-
-
-def _calculate_limits_from_alpha(alpha, two_tales):
-    limits = [alpha * 100, 50, 99]
-    if two_tales:
-        half_alpha = alpha * 100 / 2
-        limits = [half_alpha, 50, 100 - half_alpha]
-    return limits
 
 
 def _calculate_intevals(lambdas_distribution, limits):
@@ -268,13 +259,26 @@ def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):
     are_p_values_higher_of_alpha = (p_values[0] > alpha) and (p_values[1] > alpha)
     if are_p_values_higher_of_alpha:
-        return _calculate_limits_from_alpha(alpha=alpha, two_tales=True)
+        return _return_central_limits_from_alpha(alpha=alpha)
 
     is_lower_p_value_higher_of_alpha = p_values[1] > alpha
     if is_lower_p_value_higher_of_alpha:
-        return [1, 50, 100 * (1 - alpha)]
+        return _return_lower_limits_from_alpha(alpha=alpha)
 
-    return _calculate_limits_from_alpha(alpha=alpha, two_tales=False)
+    return _return_upper_limits_from_alpha(alpha=alpha)
+
+
+def _return_central_limits_from_alpha(alpha):
+    half_alpha = alpha * 100 / 2
+    return [half_alpha, 50, 100 - half_alpha]
+
+
+def _return_lower_limits_from_alpha(alpha):
+    return [1, 50, 100 * (1 - alpha)]
+
+
+def _return_upper_limits_from_alpha(alpha):
+    return [alpha * 100, 50, 99]
 
 
 def calculate_p_values(distribution):

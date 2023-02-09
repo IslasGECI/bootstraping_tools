@@ -129,6 +129,12 @@ def test_calculate_limits_from_p_values_and_alpha():
     assert obtained_limits == expected_limits
 
 
+def test_choose_type_of_limits_from_p_values():
+    p_values = (0.05, 0.727)
+    type_of_limits = choose_type_of_limits_from_p_values(p_values)
+    assert type_of_limits == "lower"
+
+
 def test_calculate_intervals_from_p_values_and_alpha():
     p_values = (0.727, 1 - 0.727)
     alpha = 0.1

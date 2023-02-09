@@ -257,15 +257,18 @@ def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):
 
 
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):
-    are_p_values_higher_of_alpha = (p_values[0] > alpha) and (p_values[1] > alpha)
-    if are_p_values_higher_of_alpha:
-        return _return_central_limits_from_alpha(alpha=alpha)
+    type_of_limit = choose_type_of_limits_from_p_values(p_values, alpha)
+    return _LIMITS_FROM_ALPHA[type_of_limit](alpha=alpha)
 
-    is_lower_p_value_higher_of_alpha = p_values[1] > alpha
-    if is_lower_p_value_higher_of_alpha:
-        return _return_lower_limits_from_alpha(alpha=alpha)
 
-    return _return_upper_limits_from_alpha(alpha=alpha)
+def choose_type_of_limits_from_p_values(p_values, alpha):
+    is_lambda_less_than_one = p_values[0] < alpha
+    if is_lambda_less_than_one:
+        return "lower"
+    is_lambda_greater_than_one = p_values[1] < alpha
+    if is_lambda_greater_than_one:
+        return "upper"
+    return "central"
 
 
 def _return_central_limits_from_alpha(alpha):
@@ -344,3 +347,10 @@ def remove_outlier(method, data, **kwargs):
     assert method in outlier_method, "No se reconoce el método de filtrado"
     data = outlier_method[method](data, **kwargs)
     return data
+
+
+_LIMITS_FROM_ALPHA = {
+    "central": _return_central_limits_from_alpha,
+    "lower": _return_lower_limits_from_alpha,
+    "upper": _return_upper_limits_from_alpha,
+}

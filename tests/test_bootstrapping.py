@@ -6,6 +6,7 @@ from bootstrapping_tools import (
     calculate_intervals_from_p_values_and_alpha,
     calculate_limits_from_p_values_and_alpha,
     calculate_p_values,
+    choose_type_of_limits_from_p_values,
     generate_latex_interval_string,
     get_bootstrap_deltas,
     lambda_calculator,
@@ -134,6 +135,12 @@ def test_choose_type_of_limits_from_p_values_and_alpha():
     alpha = 0.1
     type_of_limits = choose_type_of_limits_from_p_values(p_values, alpha)
     assert type_of_limits == "lower"
+    p_values = (0.727, 0.05)
+    type_of_limits = choose_type_of_limits_from_p_values(p_values, alpha)
+    assert type_of_limits == "upper"
+    p_values = (0.727, 1 - 0.727)
+    type_of_limits = choose_type_of_limits_from_p_values(p_values, alpha)
+    assert type_of_limits == "central"
 
 
 def test_calculate_intervals_from_p_values_and_alpha():

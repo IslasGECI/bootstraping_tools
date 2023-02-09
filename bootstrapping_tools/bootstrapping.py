@@ -237,7 +237,7 @@ def bootstrap_from_time_series(
         rand += 1
     if remove_outliers:
         lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
-    intervals = [alpha, 0.5, 1] * 100
+    intervals = [alpha * 100, 50, 100]
     if two_tales:
         half_alpha = alpha * 100 / 2
         intervals = [half_alpha, 50, 100 - half_alpha]

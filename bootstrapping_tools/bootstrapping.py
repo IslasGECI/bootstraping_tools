@@ -237,10 +237,11 @@ def bootstrap_from_time_series(
         rand += 1
     if remove_outliers:
         lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
-    limits = _calculate_limits_from_alpha(alpha, two_tales = two_tales)
+    limits = _calculate_limits_from_alpha(alpha, two_tales=two_tales)
     if return_distribution:
         return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)
     return _calculate_intevals(lambdas_bootstraps, limits)
+
 
 def _calculate_limits_from_alpha(alpha, two_tales):
     limits = [alpha * 100, 50, 100]
@@ -249,15 +250,21 @@ def _calculate_limits_from_alpha(alpha, two_tales):
         limits = [half_alpha, 50, 100 - half_alpha]
     return limits
 
+
 def _calculate_intevals(lambdas_distribution, limits):
     return np.percentile(lambdas_distribution, limits)
+
 
 def resample_data(dataframe, seed, blocks_length):
     random.seed(seed)
     return random_resample_data_by_blocks(dataframe, blocks_length)
 
+
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):
-    pass
+    are_p_values_higher_of_alpha = (p_values[0] > alpha) and (p_values[0] > alpha)
+    if are_p_values_higher_of_alpha:
+        return _calculate_limits_from_alpha(alpha=alpha, two_tales=True)
+
 
 def calculate_p_values(distribution):
     """Calculate p-values based on proportion of samples greater than 1, and below 1.0

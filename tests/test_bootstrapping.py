@@ -139,6 +139,10 @@ def test_calculate_limits_from_p_values_and_alpha():
     obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
     expected_limits = [10, 50, 99]
     assert obtained_limits == expected_limits
+    p_values = (0.05, 0.727)
+    obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
+    expected_limits = [1, 50, 90]
+    assert obtained_limits == expected_limits
 
 
 def test_calculate_intervals_from_p_values_and_alpha():

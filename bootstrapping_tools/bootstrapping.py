@@ -237,13 +237,17 @@ def bootstrap_from_time_series(
         rand += 1
     if remove_outliers:
         lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
-    intervals = [alpha * 100, 50, 100]
+    limits = _calculate_limits_from_alpha(alpha, two_tales = two_tales)
+    if return_distribution:
+        return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)
+    return _calculate_intevals(lambdas_bootstraps, limits)
+
+def _calculate_limits_from_alpha(alpha, two_tales):
+    limits = [alpha * 100, 50, 100]
     if two_tales:
         half_alpha = alpha * 100 / 2
-        intervals = [half_alpha, 50, 100 - half_alpha]
-    if return_distribution:
-        return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, intervals)
-    return _calculate_intevals(lambdas_bootstraps, intervals)
+        limits = [half_alpha, 50, 100 - half_alpha]
+    return limits
 
 def _calculate_intevals(lambdas_distribution, limits):
     return np.percentile(lambdas_distribution, limits)

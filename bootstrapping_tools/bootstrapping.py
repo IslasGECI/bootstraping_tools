@@ -256,6 +256,8 @@ def resample_data(dataframe, seed, blocks_length):
     random.seed(seed)
     return random_resample_data_by_blocks(dataframe, blocks_length)
 
+def calculate_limits_from_p_values_and_alpha(p_values, alpha):
+    pass
 
 def calculate_p_values(distribution):
     """Calculate p-values based on proportion of samples greater than 1, and below 1.0

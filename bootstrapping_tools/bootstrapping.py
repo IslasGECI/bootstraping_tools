@@ -270,9 +270,9 @@ def calculate_limits_from_p_values_and_alpha(p_values, alpha):
     if are_p_values_higher_of_alpha:
         return _calculate_limits_from_alpha(alpha=alpha, two_tales=True)
 
-    is_lower_p_value_higher_of_alpha = (p_values[1] > alpha)
+    is_lower_p_value_higher_of_alpha = p_values[1] > alpha
     if is_lower_p_value_higher_of_alpha:
-        return [1, 50, 100*(1 - alpha)]
+        return [1, 50, 100 * (1 - alpha)]
 
     return _calculate_limits_from_alpha(alpha=alpha, two_tales=False)
 

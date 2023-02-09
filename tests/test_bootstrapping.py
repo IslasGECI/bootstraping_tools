@@ -3,6 +3,7 @@ import pandas as pd
 from bootstrapping_tools import (
     boostrapping_feature,
     bootstrap_from_time_series,
+    calculate_intervals_from_p_values_and_alpha,
     calculate_limits_from_p_values_and_alpha,
     calculate_p_values,
     generate_latex_interval_string,
@@ -139,6 +140,12 @@ def test_calculate_limits_from_p_values_and_alpha():
     obtained_limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
     expected_limits = [10, 50, 99]
     assert obtained_limits == expected_limits
+
+
+def test_calculate_intervals_from_p_values_and_alpha():
+    p_values = (0.727, 1 - 0.727)
+    alpha = 0.1
+    calculate_intervals_from_p_values_and_alpha(data_original, p_values, alpha)
 
 
 def test_calculate_p_values():

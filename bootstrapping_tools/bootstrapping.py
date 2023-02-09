@@ -260,8 +260,9 @@ def resample_data(dataframe, seed, blocks_length):
     return random_resample_data_by_blocks(dataframe, blocks_length)
 
 
-def calculate_intervals_from_p_values_and_alpha(data_original, p_values, alpha):
-    pass
+def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):
+    limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
+    return _calculate_intevals(distribution, limits)
 
 
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):

@@ -123,7 +123,6 @@ def test_bootstrap_from_time_series():
         data_nest, "Nest", N=100, remove_outliers=False, alpha=0.1
     )
     expected_bootstrap_from_time_series = np.array([1.77824223, 1.79716642, 1.82171091])
-    print(obtained_bootstrap_from_time_series)
     are_close = np.isclose(
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()
@@ -145,7 +144,12 @@ def test_calculate_limits_from_p_values_and_alpha():
 def test_calculate_intervals_from_p_values_and_alpha():
     p_values = (0.727, 1 - 0.727)
     alpha = 0.1
-    calculate_intervals_from_p_values_and_alpha(data_original, p_values, alpha)
+    obtained_intervals = calculate_intervals_from_p_values_and_alpha(data_original, p_values, alpha)
+    expected_intervals = np.array([1.0, 1.0, 1.65])
+    are_close = np.isclose(
+        obtained_intervals, expected_intervals, rtol=1e-5
+    ).all()
+    assert are_close, "Intervalo del 90% difiere with one tail"
 
 
 def test_calculate_p_values():

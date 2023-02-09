@@ -106,9 +106,9 @@ def test_bootstrap_from_time_series():
     )
     is_same_middle_value = np.isclose(expected_bootstrap_from_time_series[1], obtained_bootstrap_from_time_series[1], rtol=1e-5)
     assert is_same_middle_value
-    extremes_are_higher = obtained_bootstrap_from_time_series[0] > expected_bootstrap_from_time_series[0]
-    assert extremes_are_higher
-    extremes_are_higher = obtained_bootstrap_from_time_series[2] > expected_bootstrap_from_time_series[2]
+    lower_limit = obtained_bootstrap_from_time_series[0] > expected_bootstrap_from_time_series[0]
+    upper_limit = obtained_bootstrap_from_time_series[2] > expected_bootstrap_from_time_series[2]
+    extremes_are_higher = lower_limit and upper_limit
     assert extremes_are_higher
 
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(

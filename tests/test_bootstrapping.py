@@ -3,6 +3,7 @@ import pandas as pd
 from bootstrapping_tools import (
     boostrapping_feature,
     bootstrap_from_time_series,
+    calculate_limits_from_p_values_and_alpha,
     calculate_p_values,
     generate_latex_interval_string,
     get_bootstrap_deltas,
@@ -11,8 +12,8 @@ from bootstrapping_tools import (
     lambdas_from_bootstrap_table,
     mean_bootstrapped,
     power_law,
-    remove_outlier,
     remove_distribution_outliers,
+    remove_outlier,
     seasons_from_date,
 )
 
@@ -120,6 +121,11 @@ def test_bootstrap_from_time_series():
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()
     assert are_close, "Intervalo del 90% difiere"
+
+def test_calculate_limits_from_p_values_and_alpha():
+    p_values = (0.727, 1-0.727)
+    alpha = 0.1
+    calculate_limits_from_p_values_and_alpha(p_values, alpha)
 
 
 def test_calculate_p_values():

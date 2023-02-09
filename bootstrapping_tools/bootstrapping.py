@@ -244,7 +244,7 @@ def bootstrap_from_time_series(
 
 
 def _calculate_limits_from_alpha(alpha, two_tales):
-    limits = [alpha * 100, 50, 100]
+    limits = [alpha * 100, 50, 99]
     if two_tales:
         half_alpha = alpha * 100 / 2
         limits = [half_alpha, 50, 100 - half_alpha]
@@ -261,9 +261,10 @@ def resample_data(dataframe, seed, blocks_length):
 
 
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):
-    are_p_values_higher_of_alpha = (p_values[0] > alpha) and (p_values[0] > alpha)
+    are_p_values_higher_of_alpha = (p_values[0] > alpha) and (p_values[1] > alpha)
     if are_p_values_higher_of_alpha:
         return _calculate_limits_from_alpha(alpha=alpha, two_tales=True)
+    return _calculate_limits_from_alpha(alpha=alpha, two_tales=False)
 
 
 def calculate_p_values(distribution):

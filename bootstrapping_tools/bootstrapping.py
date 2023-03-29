@@ -315,6 +315,13 @@ def generate_latex_interval_string(intervals, deltas=True, **kwargs):
     return f"{rounded_intervals[1]} ({rounded_intervals[0]} - {rounded_intervals[2]})"
 
 
+def calculate_bootstrapped_mean(array, N=2000):
+    bootstrapped_array = mean_bootstrapped(array, N)
+    interval = np.percentile(bootstrapped_array, [2.5, 50, 97.5])
+    latex_string = generate_latex_interval_string(interval, deltas=False, decimals=0)
+    return interval, latex_string
+
+
 def mean_bootstrapped(data, N=2000):
     """Calculate means bootstrapped distribution from some data.
 

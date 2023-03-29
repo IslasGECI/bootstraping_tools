@@ -3,6 +3,7 @@ import pandas as pd
 from bootstrapping_tools import (
     boostrapping_feature,
     bootstrap_from_time_series,
+    calculate_bootstrapped_mean,
     calculate_intervals_from_p_values_and_alpha,
     calculate_limits_from_p_values_and_alpha,
     calculate_p_values,
@@ -178,9 +179,19 @@ def test_generate_latex_interval_string():
     assert expected_latex_interval_string == obtained_latex_interval_string
 
 
+data_test = np.arange(0, 10)
+N_test = 5
+
+
+def test_calculate_bootstrapped_mean():
+    obtained_interval, obtained_latex_string = calculate_bootstrapped_mean(data_test, N=N_test)
+    expected_latex_string = "5.0 (4.0 - 6.0)"
+    expected_interval = np.array([4.19, 5.1, 6.19])
+    np.testing.assert_almost_equal(obtained_interval, expected_interval, decimal=2)
+    assert obtained_latex_string == expected_latex_string
+
+
 def test_mean_bootstrapped():
-    data_test = np.arange(0, 10)
-    N_test = 5
     obtained_distribution = mean_bootstrapped(data_test, N=N_test)
     expected_distribution = [4.1, 5.0, 5.1, 6.2, 6.1]
     np.testing.assert_array_equal(obtained_distribution, expected_distribution)

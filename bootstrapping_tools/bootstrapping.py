@@ -136,14 +136,6 @@ def lambdas_from_bootstrap_table(dataframe):
     return lambdas_bootstraps
 
 
-def remove_outliers_from_lambdas_bootstrap(
-    remove_outliers, outlier_method, kwargs, lambdas_bootstraps
-):
-    if remove_outliers:
-        lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
-    return lambdas_bootstraps
-
-
 def lambdas_bootstrap_from_dataframe(
     dataframe,
     column_name,

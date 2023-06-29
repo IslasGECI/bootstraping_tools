@@ -149,10 +149,7 @@ def lambdas_bootstrap_from_dataframe(
     column_name,
     N=2000,
     return_distribution=False,
-    remove_outliers=False,
-    outlier_method="tukey",
     alpha=0.05,
-    **kwargs,
 ):
     """Calculate bootstrap 95% intervals for lambda coefficient in population growth model from DataFrame with seasons and burrows quantity
     data.

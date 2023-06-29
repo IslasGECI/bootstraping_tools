@@ -135,6 +135,15 @@ def lambdas_from_bootstrap_table(dataframe, remove_outliers=True, outlier_method
     for i in tqdm(range(N)):
         fitting_result = lambda_calculator(seasons, dataframe.T[i].values)
         lambdas_bootstraps.append(fitting_result[0])
+    lambdas_bootstraps = remove_outliers_from_lambdas_bootstrap(
+        remove_outliers, outlier_method, kwargs, lambdas_bootstraps
+    )
+    return lambdas_bootstraps
+
+
+def remove_outliers_from_lambdas_bootstrap(
+    remove_outliers, outlier_method, kwargs, lambdas_bootstraps
+):
     if remove_outliers:
         lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
     return lambdas_bootstraps
@@ -147,6 +156,7 @@ def lambdas_bootstrap_from_dataframe(
     return_distribution=False,
     remove_outliers=True,
     outlier_method="tukey",
+    alpha=0.05,
     **kwargs,
 ):
     """Calculate bootstrap 95% intervals for lambda coefficient in population growth model from DataFrame with seasons and burrows quantity
@@ -172,11 +182,13 @@ def lambdas_bootstrap_from_dataframe(
         data_per_season = dataframe[dataframe.Temporada == season]
         bootstraped_data[season] = boostrapping_feature(data_per_season[column_name], N)
     lambdas_bootstraps = lambdas_from_bootstrap_table(bootstraped_data)
-    if remove_outliers:
-        lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
+    lambdas_bootstraps = remove_outliers_from_lambdas_bootstrap(
+        remove_outliers, outlier_method, kwargs, lambdas_bootstraps
+    )
+    limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
-        return lambdas_bootstraps, np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
-    return np.percentile(lambdas_bootstraps, [2.5, 50, 97.5])
+        return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)
+    return _calculate_intevals(lambdas_bootstraps, limits)
 
 
 def get_bootstrap_deltas(bootstrap_distribution, **kwargs):
@@ -234,8 +246,9 @@ def bootstrap_from_time_series(
         lambdas_bootstraps.append(fitting_result[0])
         cont += 1
         rand += 1
-    if remove_outliers:
-        lambdas_bootstraps = remove_outlier(outlier_method, lambdas_bootstraps, **kwargs)
+    lambdas_bootstraps = remove_outliers_from_lambdas_bootstrap(
+        remove_outliers, outlier_method, kwargs, lambdas_bootstraps
+    )
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
         return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)

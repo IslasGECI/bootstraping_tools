@@ -76,8 +76,19 @@ def test_lambdas_bootstrap_from_dataframe():
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
         data_nest, "Nest", N=20, remove_outliers=False
     )
+    print(obtained_lambdas_bootstrap)
     expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
     are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-5).all()
+    assert are_close
+    _, obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
+        data_nest,
+        "Nest",
+        N=20,
+        remove_outliers=False,
+        return_distribution=True,
+    )
+    print(obtained_lambdas_bootstrap)
+    are_close = np.isclose(expected_lambdas_bootstrap, obtained_lambdas_bootstrap, rtol=1e-6).all()
     assert are_close
 
 

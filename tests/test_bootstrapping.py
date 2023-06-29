@@ -15,7 +15,6 @@ from bootstrapping_tools import (
     lambdas_from_bootstrap_table,
     mean_bootstrapped,
     power_law,
-    remove_distribution_outliers,
     seasons_from_date,
 )
 

@@ -22,8 +22,7 @@ def test_random_resample_data_by_blocks():
         [20, 30, 40, 50, 20, 30, 40, 50], [700, 800, 900, 1000, 700, 800, 900, 1000]
     )
     random_seed = 2
-    rng = random.Random(random_seed)
-    block_size_4.assert_random_resampled_by_blocks(rng)
+    block_size_4.assert_random_resampled_by_blocks()
 
 
 def test_length_block_labels():
@@ -43,8 +42,8 @@ class Tester_By_Size_Blocks:
         self.data = None
         self._set_data()
 
-    def assert_random_resampled_by_blocks(self, rng):
-        obtained = random_resample_data_by_blocks(self.data, self.blocks_length, rng)
+    def assert_random_resampled_by_blocks(self):
+        obtained = random_resample_data_by_blocks(self.data, self.blocks_length)
         print(obtained)
         assert_frame_equal(self.expected, obtained)
 

@@ -15,14 +15,13 @@ def test_random_resample_data_by_blocks_blocks_length_2():
 
 
 def test_random_resample_data_by_blocks():
-    random.seed(2)
     blocks_length = 4
     block_size_4 = Tester_By_Size_Blocks(blocks_length)
     block_size_4.set_expected(
         [20, 30, 40, 50, 20, 30, 40, 50], [700, 800, 900, 1000, 700, 800, 900, 1000]
     )
     random_seed = 2
-    rng = True
+    rng = random.Random(random_seed)
     block_size_4.assert_random_resampled_by_blocks(rng)
 
 

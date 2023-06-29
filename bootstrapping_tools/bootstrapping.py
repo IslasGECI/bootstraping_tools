@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 
-from .resample_by_blocks import random_resample_data_by_blocks
+from .resample_by_blocks import random_resample_data_by_blocks, xxrandom_resample_data_by_blocks
 from scipy.optimize import curve_fit
 from tqdm import tqdm
 
@@ -194,8 +194,8 @@ def _calculate_intevals(lambdas_distribution, limits):
 
 
 def resample_data(dataframe, seed, blocks_length):
-    random.seed(seed)
-    return random_resample_data_by_blocks(dataframe, blocks_length)
+    rng = random.Random(seed)
+    return xxrandom_resample_data_by_blocks(dataframe, blocks_length, rng)
 
 
 def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):

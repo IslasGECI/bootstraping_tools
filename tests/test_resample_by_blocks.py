@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal
 from bootstrapping_tools import random_resample_data_by_blocks
-from random import Random
+import random
 
 
 def test_random_resample_data_by_blocks_blocks_length_2():
@@ -22,7 +22,7 @@ def test_random_resample_data_by_blocks():
         [20, 30, 40, 50, 20, 30, 40, 50], [700, 800, 900, 1000, 700, 800, 900, 1000]
     )
     random_seed = 2
-    rng = Random(random_seed)
+    rng = random.Random(random_seed)
     block_size_4.assert_random_resampled_by_blocks(rng)
 
 

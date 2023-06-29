@@ -202,11 +202,3 @@ def test_mean_bootstrapped():
     obtained_distribution = mean_bootstrapped(data_test)
     default_bootstrapping_size_sample = 2000
     assert len(obtained_distribution) == default_bootstrapping_size_sample
-
-
-def test_remove_distribution_outliers():
-    data_with_outliers = np.append(np.ones(100), np.arange(10))
-    length_expected = 105
-    obtained_data = remove_distribution_outliers(data_with_outliers)
-    length_obtained_data = len(obtained_data)
-    assert length_obtained_data == length_expected

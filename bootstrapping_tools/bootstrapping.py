@@ -137,9 +137,6 @@ def lambdas_from_bootstrap_table(
     for i in tqdm(range(N)):
         fitting_result = lambda_calculator(seasons, dataframe.T[i].values)
         lambdas_bootstraps.append(fitting_result[0])
-    lambdas_bootstraps = remove_outliers_from_lambdas_bootstrap(
-        remove_outliers, outlier_method, kwargs, lambdas_bootstraps
-    )
     return lambdas_bootstraps
 
 

@@ -159,8 +159,6 @@ def lambdas_bootstrap_from_dataframe(
         column_name (string): Name of the column in the DataFrame to fit the model.
         N (int, optional): Number of bootstrap samples you want. Defaults to 2000.
         return_distribution (bool, optional): True if you want the bootstrap distribution. Defaults to False.
-        remove_outliers (bool, optional): True if you want filter your final distribution. Defaults to True.
-        outlier_method (str, optional): Method to use to filter, available methods are "tukey" and "std" . Defaults to "tukey".
 
     Returns:
         [ndarray]: 95% bootstrap interval for lambda coefficient. The interval is conformed by 2.5, 50 and 97.5 percentiles in an Numpy array.
@@ -200,7 +198,7 @@ def bootstrap_from_time_series(
     column_name,
     N=2000,
     return_distribution=False,
-    remove_outliers=True,
+    remove_outliers=False,
     outlier_method="tukey",
     blocks_length=2,
     alpha=0.05,

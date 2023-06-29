@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal
-from bootstrapping_tools import random_resample_data_by_blocks, xxrandom_resample_data_by_blocks
+from bootstrapping_tools import xxrandom_resample_data_by_blocks
 import random
 
 

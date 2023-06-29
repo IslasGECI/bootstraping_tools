@@ -100,7 +100,9 @@ def test_get_bootstrap_deltas():
 
 def test_bootstrap_from_time_series():
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
-        data_nest, "Nest", N=100, remove_outliers=False
+        data_nest,
+        "Nest",
+        N=100,
     )
     expected_bootstrap_from_time_series = np.array([1.77056253, 1.79716642, 1.82920025])
     are_close = np.isclose(
@@ -109,7 +111,7 @@ def test_bootstrap_from_time_series():
     assert are_close, "Intervalo del 95% difiere"
 
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
-        data_nest, "Nest", N=100, remove_outliers=False, alpha=0.1
+        data_nest, "Nest", N=100, alpha=0.1
     )
     expected_bootstrap_from_time_series = np.array([1.77824223, 1.79716642, 1.82171091])
     are_close = np.isclose(

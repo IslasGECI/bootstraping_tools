@@ -117,13 +117,11 @@ def boostrapping_feature(data, number_sample=2000):
     return bootstrap_data
 
 
-def lambdas_from_bootstrap_table(dataframe, **kwargs):
+def lambdas_from_bootstrap_table(dataframe):
     """Calculate bootstrap distributions without outliers for lambda coefficient in population growth model from bootstrapped samples per season.
 
     Args:
         dataframe (DataFrame): DataFrame with "Years" in columns and the bootstrap samples in the rows. (GECI-Bootstrap con R).
-        remove_outliers (bool, optional): True if you want filter your final distribution. Defaults to True.
-        outlier_method (str, optional): Method to use to filter, available methods are "tukey" and "std" . Defaults to "tukey".
 
     Returns:
         [ndarray]: Filtered bootstrap distribution for lambdas coefficient.

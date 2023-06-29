@@ -149,7 +149,7 @@ def lambdas_bootstrap_from_dataframe(
     column_name,
     N=2000,
     return_distribution=False,
-    remove_outliers=True,
+    remove_outliers=False,
     outlier_method="tukey",
     alpha=0.05,
     **kwargs,

@@ -66,26 +66,6 @@ def remove_distribution_outliers(data, number_of_std=2.698):
     return data[mask]
 
 
-def tukey_fences(data, fence_width=1.5):
-    """Filter an array using Tukey fences method
-
-    Args:
-        data (List or ndarray): Distribution samples to be filteredled
-        fence_width (float, optional):  Amplitude of filter in IQR units. Defaults to 1.5.
-
-    Returns:
-        [ndarray]: Numpy array with the filtered data.
-    """
-    data = np.array(data)
-    first_quantile = np.quantile(data, 0.25)
-    third_quantile = np.quantile(data, 0.75)
-    interquartile_range = third_quantile - first_quantile
-    lower_limit = first_quantile - (interquartile_range * fence_width)
-    upper_limit = third_quantile + (interquartile_range * fence_width)
-    mask = (lower_limit <= data) & (data <= upper_limit)
-    return data[mask]
-
-
 def seasons_from_date(data):
     """Extract years from string date format: dd/mm/aaaa.
 

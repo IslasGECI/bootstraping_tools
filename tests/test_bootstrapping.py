@@ -74,7 +74,9 @@ data_nest = pd.DataFrame(
 
 def test_lambdas_bootstrap_from_dataframe():
     obtained_lambdas_bootstrap = lambdas_bootstrap_from_dataframe(
-        data_nest, "Nest", N=20, remove_outliers=False
+        data_nest,
+        "Nest",
+        N=20,
     )
     print(obtained_lambdas_bootstrap)
     expected_lambdas_bootstrap = np.array([[1.795534, 1.821272, 1.848668]])
@@ -84,7 +86,6 @@ def test_lambdas_bootstrap_from_dataframe():
         data_nest,
         "Nest",
         N=20,
-        remove_outliers=False,
         return_distribution=True,
     )
     print(obtained_lambdas_bootstrap)

@@ -324,22 +324,6 @@ def mean_bootstrapped(data, N=2000):
     return np.squeeze(bootstrap_mean)
 
 
-def remove_outlier(method, data, **kwargs):
-    """Select method to filter the outliers in data.
-
-    Args:
-        method (string): Method to use to filter, available methods are "tukey" and "std" . Defaults to "tukey".
-        data (List or ndarray): Distribution to be filtered by the method selected.
-        **kwargs: Arguments for the filter method.
-    Returns:
-        [ndarray]: data filtered.
-    """
-    outlier_method = {"tukey": tukey_fences, "std": remove_distribution_outliers}
-    assert method in outlier_method, "No se reconoce el método de filtrado"
-    data = outlier_method[method](data, **kwargs)
-    return data
-
-
 _LIMITS_FROM_ALPHA = {
     "central": _return_central_limits_from_alpha,
     "lower": _return_lower_limits_from_alpha,

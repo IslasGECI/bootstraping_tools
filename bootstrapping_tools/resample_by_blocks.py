@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 
-def xxrandom_resample_data_by_blocks(original_sample, blocks_length, rng):
+def random_resample_data_by_blocks(original_sample, blocks_length, rng):
     n_rows_original = len(original_sample)
     block_labels = _get_labels(n_rows_original, blocks_length)
     length_block_labels = len(block_labels)

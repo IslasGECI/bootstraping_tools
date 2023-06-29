@@ -58,7 +58,7 @@ def seasons_from_date(data):
     Returns:
         [ndarray]: Numpy array with the years: aaaa
     """
-    seasons = data["Fecha"].str.split("/", n=2, expand=True)
+    seasons = data["Fecha"].str.split("/", expand=True)
     return np.array(seasons[2])
 
 

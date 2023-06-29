@@ -117,7 +117,9 @@ def boostrapping_feature(data, number_sample=2000):
     return bootstrap_data
 
 
-def lambdas_from_bootstrap_table(dataframe, remove_outliers=True, outlier_method="tukey", **kwargs):
+def lambdas_from_bootstrap_table(
+    dataframe, remove_outliers=False, outlier_method="tukey", **kwargs
+):
     """Calculate bootstrap distributions without outliers for lambda coefficient in population growth model from bootstrapped samples per season.
 
     Args:

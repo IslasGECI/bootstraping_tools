@@ -233,9 +233,6 @@ def bootstrap_from_time_series(
         lambdas_bootstraps.append(fitting_result[0])
         cont += 1
         rand += 1
-    lambdas_bootstraps = remove_outliers_from_lambdas_bootstrap(
-        remove_outliers, outlier_method, kwargs, lambdas_bootstraps
-    )
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
         return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)

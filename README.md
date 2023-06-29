@@ -2,4 +2,6 @@
 
 # Bootstrapping tools
 
-GECI tools to perform bootstrapping sampling
+GECI tools to perform bootstrapping sampling by blocks.
+
+

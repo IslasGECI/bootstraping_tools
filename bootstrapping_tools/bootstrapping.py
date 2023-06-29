@@ -49,23 +49,6 @@ def lambda_calculator(
     return popt
 
 
-def remove_distribution_outliers(data, number_of_std=2.698):
-    """Remove outliers from distribution using the standard deviation and a range
-
-    Args:
-        data (List or ndarray): Distribution samples to be filteredled
-        number_of_std (float, optional): Amplitude of filter based on standard deviation units. Defaults to 2.698 std.
-
-    Returns:
-        [ndarray]: Numpy array with the filtered data.
-    """
-    data = np.array(data)
-    mean = np.mean(data)
-    std = np.std(data)
-    mask = abs(data - mean) <= std * number_of_std
-    return data[mask]
-
-
 def seasons_from_date(data):
     """Extract years from string date format: dd/mm/aaaa.
 

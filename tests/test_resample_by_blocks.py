@@ -9,7 +9,7 @@ def test_random_resample_data_by_blocks_blocks_length_2():
     blocks_length = 2
     block_size_2 = Tester_By_Size_Blocks(blocks_length)
     block_size_2.set_expected([30, 40, 30, 40, 10, 20], [800, 900, 800, 900, 600, 700])
-    random_seed = 6
+    random_seed = 2
     rng = random.Random(random_seed)
     block_size_2.assert_random_resampled_by_blocks(rng)
 

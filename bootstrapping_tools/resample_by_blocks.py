@@ -1,5 +1,4 @@
 import numpy as np
-import random
 
 
 def random_resample_data_by_blocks(original_sample, blocks_length, rng):

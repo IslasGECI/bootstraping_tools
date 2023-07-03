@@ -76,4 +76,4 @@ class Size_blocks_tester:
         self.data = self._data_from_columns(np.arange(10, 60, 10), np.arange(600, 1100, 100))
 
     def _data_from_columns(self, column_a, column_b):
-        return pd.DataFrame({"b": column_b, "a": column_a})
+        return pd.DataFrame({"b": column_b, "Temporada": column_a})

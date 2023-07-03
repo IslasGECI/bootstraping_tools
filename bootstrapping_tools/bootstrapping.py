@@ -198,6 +198,12 @@ def resample_data(dataframe, seed, blocks_length):
     return random_resample_data_by_blocks(dataframe, blocks_length, rng)
 
 
+def resample_and_shift_data(dataframe, seed, blocks_length):
+    resampled_data = resample_data(dataframe, seed, blocks_length)
+    resampled_data.iloc[:, 0] = resampled_data.iloc[:, 0] - resampled_data.iloc[:, 0].min()
+    return resampled_data
+
+
 def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):
     limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
     return _calculate_intevals(distribution, limits)

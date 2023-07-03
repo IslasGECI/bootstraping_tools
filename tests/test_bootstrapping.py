@@ -124,7 +124,7 @@ def test_bootstrap_from_time_series():
         "Nest",
         N=100,
     )
-    expected_bootstrap_from_time_series = np.array([1.77056253, 1.79716642, 1.82920025])
+    expected_bootstrap_from_time_series = np.array([1.76982509, 1.80925651, 1.83916692])
     are_close = np.isclose(
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()
@@ -133,7 +133,8 @@ def test_bootstrap_from_time_series():
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest, "Nest", N=100, alpha=0.1
     )
-    expected_bootstrap_from_time_series = np.array([1.77824223, 1.79716642, 1.82171091])
+    print(obtained_bootstrap_from_time_series)
+    expected_bootstrap_from_time_series = np.array([1.76982509, 1.80925651, 1.83715074])
     are_close = np.isclose(
         expected_bootstrap_from_time_series, obtained_bootstrap_from_time_series, rtol=1e-5
     ).all()

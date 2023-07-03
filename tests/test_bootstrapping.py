@@ -113,6 +113,12 @@ def test_get_bootstrap_deltas():
 
 
 def test_bootstrap_from_time_series():
+    data_nest = pd.DataFrame(
+        {
+            "Temporada": [2019, 2020, 2018, 2018, 2019, 2020, 2018, 2019, 2020],
+            "Nest": [3.9, 6.9, 2.0, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+        }
+    )
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest,
         "Nest",

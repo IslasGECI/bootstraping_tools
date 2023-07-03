@@ -200,7 +200,8 @@ def resample_data(dataframe, seed, blocks_length):
 
 def resample_and_shift_data(dataframe, seed, blocks_length):
     resampled_data = resample_data(dataframe, seed, blocks_length)
-    resampled_data.iloc[:, 0] = resampled_data.iloc[:, 0] - resampled_data.iloc[:, 0].min()
+    min_season = dataframe.iloc[:, 0].min()
+    resampled_data.iloc[:, 0] = resampled_data.iloc[:, 0] - min_season
     return resampled_data
 
 

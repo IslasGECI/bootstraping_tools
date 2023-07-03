@@ -11,6 +11,7 @@ from bootstrapping_tools import (
     generate_latex_interval_string,
     get_bootstrap_deltas,
     lambda_calculator,
+    lambda_calculator_from_resampled_data,
     lambdas_bootstrap_from_dataframe,
     lambdas_from_bootstrap_table,
     mean_bootstrapped,
@@ -45,6 +46,14 @@ def test_lambda_calculator():
     seasons = [1, 2]
     nest = [1, 2]
     obtained_parameters = lambda_calculator(seasons, nest)
+    expected_parameters = [2.0, 1.0]
+    np.testing.assert_almost_equal(expected_parameters, obtained_parameters, decimal=4)
+
+
+def test_lambda_calculator_from_resampled_data():
+    seasons = [2, 1, 0, 3, 2, 6, 5]
+    nest = [4, 2, 1, 8, 4, 64, 32]
+    obtained_parameters = lambda_calculator_from_resampled_data(seasons, nest)
     expected_parameters = [2.0, 1.0]
     np.testing.assert_almost_equal(expected_parameters, obtained_parameters, decimal=4)
 

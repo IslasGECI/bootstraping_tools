@@ -44,6 +44,16 @@ def lambda_calculator(
     return popt
 
 
+def lambda_calculator_from_resampled_data(
+    temporadas, maximo_nidos, max_iter=10000, lower_bounds=0, lambda_upper_bound=50
+):
+    temporadas = np.array(temporadas)
+    popt = fit_power_law_parameters(
+        maximo_nidos, max_iter, lower_bounds, lambda_upper_bound, temporadas
+    )
+    return popt
+
+
 def fit_power_law_parameters(maximo_nidos, max_iter, lower_bounds, lambda_upper_bound, numero_agno):
     maximo_nidos = np.array(maximo_nidos)
     popt, _ = curve_fit(
@@ -54,16 +64,6 @@ def fit_power_law_parameters(maximo_nidos, max_iter, lower_bounds, lambda_upper_
         bounds=((lower_bounds, lower_bounds), (lambda_upper_bound, np.inf)),
     )
 
-    return popt
-
-
-def lambda_calculator_from_resampled_data(
-    temporadas, maximo_nidos, max_iter=10000, lower_bounds=0, lambda_upper_bound=50
-):
-    temporadas = np.array(temporadas)
-    popt = fit_power_law_parameters(
-        maximo_nidos, max_iter, lower_bounds, lambda_upper_bound, temporadas
-    )
     return popt
 
 

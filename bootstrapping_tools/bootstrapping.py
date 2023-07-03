@@ -53,7 +53,6 @@ def lambda_calculator_from_resampled_data(
     temporadas, maximo_nidos, max_iter=10000, lower_bounds=0, lambda_upper_bound=50
 ):
     temporadas = np.array(temporadas)
-    numero_agno = temporadas
     maximo_nidos = np.array(maximo_nidos)
     popt, _ = curve_fit(
         power_law,

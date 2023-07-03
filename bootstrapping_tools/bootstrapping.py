@@ -57,7 +57,7 @@ def lambda_calculator_from_resampled_data(
     maximo_nidos = np.array(maximo_nidos)
     popt, _ = curve_fit(
         power_law,
-        numero_agno,
+        temporadas,
         maximo_nidos,
         maxfev=max_iter,
         bounds=((lower_bounds, lower_bounds), (lambda_upper_bound, np.inf)),

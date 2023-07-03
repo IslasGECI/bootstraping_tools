@@ -53,9 +53,18 @@ def test_lambda_calculator():
 def test_lambda_calculator_from_resampled_data():
     seasons = [2, 1, 0, 3, 2, 6, 5]
     nest = [4, 2, 1, 8, 4, 64, 32]
-    obtained_parameters = lambda_calculator_from_resampled_data(seasons, nest)
+    obtained_parameters_with_first_season = lambda_calculator_from_resampled_data(seasons, nest)
     expected_parameters = [2.0, 1.0]
-    np.testing.assert_almost_equal(expected_parameters, obtained_parameters, decimal=4)
+    np.testing.assert_almost_equal(
+        expected_parameters, obtained_parameters_with_first_season, decimal=4
+    )
+
+    seasons = [2, 1, 3, 2, 6, 5]
+    nest = [4, 2, 8, 4, 64, 32]
+    obtained_parameters_without_first_season = lambda_calculator_from_resampled_data(seasons, nest)
+    np.testing.assert_almost_equal(
+        obtained_parameters_with_first_season, obtained_parameters_without_first_season, decimal=4
+    )
 
 
 def test_boostrapping_feature():

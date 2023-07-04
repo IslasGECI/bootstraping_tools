@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 
+from .n0_and_lambdas_intervals import get_percentile
 from .resample_by_blocks import random_resample_data_by_blocks
 from scipy.optimize import curve_fit
 from tqdm import tqdm
@@ -147,7 +148,7 @@ def lambdas_bootstrap_from_dataframe(
     lambdas_bootstraps = lambdas_from_bootstrap_table(bootstraped_data)
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
-        return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)
+        return lambdas_bootstraps, get_percentile(lambdas_bootstraps, limits)
     return _calculate_intevals(lambdas_bootstraps, limits)
 
 
@@ -205,7 +206,7 @@ def bootstrap_from_time_series(
         rand += 1
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
-        return bootstrap_tuples, _calculate_intevals(lambdas_bootstraps, limits)
+        return bootstrap_tuples, get_percentile(bootstrap_tuples, limits)
     return _calculate_intevals(lambdas_bootstraps, limits)
 
 

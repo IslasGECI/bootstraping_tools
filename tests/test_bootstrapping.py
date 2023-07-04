@@ -157,7 +157,7 @@ def test_bootstrap_from_time_series():
     ]
     assert obtained_distribution == expected_distribution
     expected_intervals = [
-        (1.8050173285456454, 2.1778260178683357),
+        (1.7575757577939, 2.2531034477499023),
         (1.8089009429675702, 2.1287122021454907),
         (1.8248880416251057, 2.100653559070486),
     ]

@@ -167,7 +167,7 @@ def get_bootstrap_deltas(bootstrap_distribution, **kwargs):
     return [inferior_limit, bootstrap_distribution[1], superior_limit]
 
 
-def xxbootstrap_from_time_series(
+def bootstrap_from_time_series(
     dataframe,
     column_name,
     N=2000,

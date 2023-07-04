@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from bootstrapping_tools import (
     boostrapping_feature,
-    xxbootstrap_from_time_series,
+    bootstrap_from_time_series,
     calculate_bootstrapped_mean,
     calculate_intervals_from_p_values_and_alpha,
     calculate_limits_from_p_values_and_alpha,
@@ -119,7 +119,7 @@ def test_bootstrap_from_time_series():
             "Nest": [3.9, 6.9, 2.0, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
         }
     )
-    obtained_bootstrap_from_time_series = xxbootstrap_from_time_series(
+    obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest,
         "Nest",
         N=100,
@@ -133,7 +133,7 @@ def test_bootstrap_from_time_series():
         obtained_bootstrap_from_time_series == expected_bootstrap_from_time_series
     ), "Intervalo del 95% difiere"
 
-    obtained_bootstrap_from_time_series = xxbootstrap_from_time_series(
+    obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest, "Nest", N=100, alpha=0.1
     )
     print(obtained_bootstrap_from_time_series)
@@ -146,7 +146,7 @@ def test_bootstrap_from_time_series():
         obtained_bootstrap_from_time_series == expected_bootstrap_from_time_series
     ), "Intervalo del 90% difiere"
 
-    obtained_distribution, obtained_intervals = xxbootstrap_from_time_series(
+    obtained_distribution, obtained_intervals = bootstrap_from_time_series(
         data_nest, "Nest", N=10, return_distribution=True
     )
     expected_distribution = [

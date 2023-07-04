@@ -149,7 +149,7 @@ def lambdas_bootstrap_from_dataframe(
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
         return lambdas_bootstraps, get_percentile(lambdas_bootstraps, limits)
-    return _calculate_intervals(lambdas_bootstraps, limits)
+    return get_percentile(lambdas_bootstraps, limits)
 
 
 def get_bootstrap_deltas(bootstrap_distribution, **kwargs):

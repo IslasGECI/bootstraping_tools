@@ -1,2 +1,2 @@
 def get_percentile(lambdas_n0s, limits):
-    pass
+    return sorted(lambdas_n0s)

@@ -156,13 +156,13 @@ def test_bootstrap_from_time_series():
         (1.7885195974207062, 2.1707743395392596),
         (1.8098415460577582, 2.120238993094641),
     ]
-    np.testing.assert_allclose(obtained_distribution, expected_distribution, rtol=1e5)
+    np.testing.assert_allclose(obtained_distribution, expected_distribution, rtol=1e-5)
     expected_intervals = [
         (1.7575757577939, 2.2531034477499023),
         (1.8089009429675702, 2.1287122021454907),
         (1.8248880416251057, 2.100653559070486),
     ]
-    assert obtained_intervals == expected_intervals
+    np.testing.assert_allclose(obtained_intervals, expected_intervals, rtol=1e-5)
 
 
 def test_calculate_limits_from_p_values_and_alpha():

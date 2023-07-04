@@ -140,6 +140,12 @@ def test_bootstrap_from_time_series():
     ).all()
     assert are_close, "Intervalo del 90% difiere"
 
+    obtained_distribution, obtained_intervals = bootstrap_from_time_series(
+        data_nest, "Nest", N=10, return_distribution=True
+    )
+    expected_distribution = [(i, i) for i in range(10)]
+    assert obtained_distribution == expected_distribution
+
 
 def test_calculate_limits_from_p_values_and_alpha():
     alpha = 0.1

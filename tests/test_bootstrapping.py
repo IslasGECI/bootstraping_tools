@@ -136,7 +136,6 @@ def test_bootstrap_from_time_series():
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest, "Nest", N=100, alpha=0.1
     )
-    print(obtained_bootstrap_from_time_series)
     expected_bootstrap_from_time_series = [
         (1.7698250860332925, 2.221937525491109),
         (1.8096120694889182, 2.1384176031379485),

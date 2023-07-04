@@ -156,6 +156,12 @@ def test_bootstrap_from_time_series():
         (1.8098415460577582, 2.120238993094641),
     ]
     assert obtained_distribution == expected_distribution
+    expected_intervals = [
+        (1.8050173285456454, 2.1778260178683357),
+        (1.8089009429675702, 2.1287122021454907),
+        (1.8248880416251057, 2.100653559070486),
+    ]
+    assert obtained_intervals == expected_intervals
 
 
 def test_calculate_limits_from_p_values_and_alpha():

@@ -143,7 +143,18 @@ def test_bootstrap_from_time_series():
     obtained_distribution, obtained_intervals = bootstrap_from_time_series(
         data_nest, "Nest", N=10, return_distribution=True
     )
-    expected_distribution = [(i, i) for i in range(10)]
+    expected_distribution = [
+        (1.8248880416251057, 2.100653559070486),
+        (1.8089009429675704, 2.1287122021454903),
+        (1.7575757577939, 2.2531034477499023),
+        (1.8174934096625839, 2.1035558283175577),
+        (1.810200672551555, 2.109785659442113),
+        (1.8050173285456454, 2.1778260178683357),
+        (1.8089009429675702, 2.1287122021454907),
+        (1.8081803236719451, 2.119011965634283),
+        (1.7885195974207062, 2.1707743395392596),
+        (1.8098415460577582, 2.120238993094641),
+    ]
     assert obtained_distribution == expected_distribution
 
 

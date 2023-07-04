@@ -186,6 +186,7 @@ def bootstrap_from_time_series(
         If `return_distribution` is True, returns the distribution too.
     """
     lambdas_bootstraps = []
+    bootstrap_tuples = []
     cont = 0
     rand = 0
     print("Calculating bootstrap growth rates distribution:")
@@ -199,11 +200,12 @@ def bootstrap_from_time_series(
             rand += 1
             continue
         lambdas_bootstraps.append(fitting_result[0])
+        bootstrap_tuples.append(tuple(fitting_result))
         cont += 1
         rand += 1
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
-        return lambdas_bootstraps, _calculate_intevals(lambdas_bootstraps, limits)
+        return bootstrap_tuples, _calculate_intevals(lambdas_bootstraps, limits)
     return _calculate_intevals(lambdas_bootstraps, limits)
 
 

@@ -1,6 +1,3 @@
-from math import floor
-
-
 def get_percentile(lambdas_n0s, limits):
     sorted_tuples = sorted(lambdas_n0s)
     divided_limits = [limit / 100 for limit in limits]

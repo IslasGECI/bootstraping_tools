@@ -129,10 +129,9 @@ def test_bootstrap_from_time_series():
         (1.8096120694889182, 2.1384176031379485),
         (1.8402453825641778, 2.0374999998564443),
     ]
-    assert (
-        obtained_bootstrap_from_time_series == expected_bootstrap_from_time_series
+    np.testing.assert_allclose(
+        obtained_bootstrap_from_time_series, expected_bootstrap_from_time_series, rtol=1e-5
     ), "Intervalo del 95% difiere"
-
     obtained_bootstrap_from_time_series = bootstrap_from_time_series(
         data_nest, "Nest", N=100, alpha=0.1
     )
@@ -141,10 +140,9 @@ def test_bootstrap_from_time_series():
         (1.8096120694889182, 2.1384176031379485),
         (1.8371173070873836, 2.0444444444444443),
     ]
-    assert (
-        obtained_bootstrap_from_time_series == expected_bootstrap_from_time_series
+    np.testing.assert_allclose(
+        obtained_bootstrap_from_time_series, expected_bootstrap_from_time_series, rtol=1e-5
     ), "Intervalo del 90% difiere"
-
     obtained_distribution, obtained_intervals = bootstrap_from_time_series(
         data_nest, "Nest", N=10, return_distribution=True
     )

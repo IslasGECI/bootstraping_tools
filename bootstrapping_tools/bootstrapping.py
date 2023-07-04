@@ -149,7 +149,7 @@ def lambdas_bootstrap_from_dataframe(
     limits = _return_central_limits_from_alpha(alpha)
     if return_distribution:
         return lambdas_bootstraps, get_percentile(lambdas_bootstraps, limits)
-    return _calculate_intevals(lambdas_bootstraps, limits)
+    return _calculate_intervals(lambdas_bootstraps, limits)
 
 
 def get_bootstrap_deltas(bootstrap_distribution, **kwargs):
@@ -208,7 +208,7 @@ def bootstrap_from_time_series(
     return get_percentile(bootstrap_tuples, limits)
 
 
-def _calculate_intevals(lambdas_distribution, limits):
+def _calculate_intervals(lambdas_distribution, limits):
     return np.percentile(lambdas_distribution, limits)
 
 
@@ -226,7 +226,7 @@ def resample_and_shift_data(dataframe, seed, blocks_length):
 
 def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):
     limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
-    return _calculate_intevals(distribution, limits)
+    return _calculate_intervals(distribution, limits)
 
 
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):

@@ -147,7 +147,7 @@ def test_bootstrap_from_time_series():
         obtained_bootstrap_from_time_series == expected_bootstrap_from_time_series
     ), "Intervalo del 90% difiere"
 
-    obtained_distribution, obtained_intervals = bootstrap_from_time_series(
+    obtained_distribution, obtained_intervals = xxbootstrap_from_time_series(
         data_nest, "Nest", N=10, return_distribution=True
     )
     expected_distribution = [

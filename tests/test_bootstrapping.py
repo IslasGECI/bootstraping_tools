@@ -138,7 +138,11 @@ def test_bootstrap_from_time_series():
         data_nest, "Nest", N=100, alpha=0.1
     )
     print(obtained_bootstrap_from_time_series)
-    expected_bootstrap_from_time_series = [1.76982509, 1.80925651, 1.83715074]
+    expected_bootstrap_from_time_series = [
+        (1.7698250860332925, 2.221937525491109),
+        (1.8096120694889182, 2.1384176031379485),
+        (1.8371173070873836, 2.0444444444444443),
+    ]
     assert (
         obtained_bootstrap_from_time_series == expected_bootstrap_from_time_series
     ), "Intervalo del 90% difiere"

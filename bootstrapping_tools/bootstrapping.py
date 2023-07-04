@@ -226,7 +226,7 @@ def resample_and_shift_data(dataframe, seed, blocks_length):
 
 def calculate_intervals_from_p_values_and_alpha(distribution, p_values, alpha):
     limits = calculate_limits_from_p_values_and_alpha(p_values, alpha)
-    return _calculate_intervals(distribution, limits)
+    return get_percentile(distribution, limits)
 
 
 def calculate_limits_from_p_values_and_alpha(p_values, alpha):

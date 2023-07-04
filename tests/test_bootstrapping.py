@@ -202,9 +202,9 @@ def test_calculate_intervals_from_p_values_and_alpha():
     p_values = (0.727, 1 - 0.727)
     alpha = 0.1
     obtained_intervals = calculate_intervals_from_p_values_and_alpha(data_original, p_values, alpha)
-    expected_intervals = np.array([1.0, 1.0, 1.65])
+    expected_intervals = np.array([1.0, 1.0, 2.0])
     are_close = np.isclose(obtained_intervals, expected_intervals, rtol=1e-5).all()
-    assert are_close, "Intervalo del 90% difiere with one tail"
+    assert are_close, "Intervalo del 90% difiere with two tails"
 
 
 def test_calculate_p_values():

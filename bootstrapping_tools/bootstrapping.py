@@ -167,49 +167,6 @@ def get_bootstrap_deltas(bootstrap_distribution, **kwargs):
     return [inferior_limit, bootstrap_distribution[1], superior_limit]
 
 
-def bootstrap_from_time_series(
-    dataframe,
-    column_name,
-    N=2000,
-    return_distribution=False,
-    blocks_length=2,
-    alpha=0.05,
-):
-    """Calculate 95% bootstrap intervals for lambda coefficient in population growth model from timeseries data.
-
-    Args:
-        dataframe (DataFrame): DataFrame with the columns "Temporada" with the seasons, and "column_name" with the values of the time serie.
-        column_name (string): Name of the column in the DataFrame to fit the model.
-        N (int, optional): Number of bootstrap samples you want. Defaults to 2000.
-        return_distribution (bool, optional): True if you want the bootstrap distribution. Defaults to False.
-    Returns:
-        [ndarray]: 95% bootstrap interval for lambda coefficient. The interval is conformed by 2.5, 50 and 97.5 percentiles in an Numpy array.
-        If `return_distribution` is True, returns the distribution too.
-    """
-    lambdas_bootstraps = []
-    bootstrap_tuples = []
-    cont = 0
-    rand = 0
-    print("Calculating bootstrap growth rates distribution:")
-    while cont < N:
-        resampled_data = resample_and_shift_data(dataframe, rand, blocks_length)
-        try:
-            fitting_result = lambda_calculator_from_resampled_data(
-                resampled_data["Temporada"], resampled_data[column_name]
-            )
-        except RuntimeError:
-            rand += 1
-            continue
-        lambdas_bootstraps.append(fitting_result[0])
-        bootstrap_tuples.append(tuple(fitting_result))
-        cont += 1
-        rand += 1
-    limits = _return_central_limits_from_alpha(alpha)
-    if return_distribution:
-        return bootstrap_tuples, get_percentile(bootstrap_tuples, limits)
-    return _calculate_intevals(lambdas_bootstraps, limits)
-
-
 def xxbootstrap_from_time_series(
     dataframe,
     column_name,

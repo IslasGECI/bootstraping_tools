@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from bootstrapping_tools import (
     boostrapping_feature,
-    bootstrap_from_time_series,
     xxbootstrap_from_time_series,
     calculate_bootstrapped_mean,
     calculate_intervals_from_p_values_and_alpha,

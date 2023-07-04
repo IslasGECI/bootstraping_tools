@@ -62,7 +62,6 @@ class Size_blocks_tester:
 
     def assert_random_resampled_by_blocks(self, rng):
         obtained = random_resample_data_by_blocks(self.data, self.blocks_length, rng)
-        print(obtained)
         assert_frame_equal(self.expected, obtained)
 
     def assert_resample_and_shift_data(self, seed):

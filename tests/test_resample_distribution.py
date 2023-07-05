@@ -1,4 +1,4 @@
-from bootstrapping_tools import resample_and_shift_data, get_labels, xxresample_and_shift_data
+from bootstrapping_tools import get_labels, xxresample_and_shift_data
 import pandas as pd
 import random
 

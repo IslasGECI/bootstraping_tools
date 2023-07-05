@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal
-from bootstrapping_tools import random_resample_data_by_blocks, resample_and_shift_data
+from bootstrapping_tools import xxrandom_resample_data_by_blocks, resample_and_shift_data
 import random
 
 
@@ -68,7 +68,7 @@ class Size_blocks_tester:
         self._set_data()
 
     def assert_random_resampled_by_blocks(self, rng):
-        obtained = random_resample_data_by_blocks(self.data, self.blocks_length, rng)
+        obtained = xxrandom_resample_data_by_blocks(self.data, self.blocks_length, rng)
         assert_frame_equal(self.expected, obtained)
 
     def assert_resample_and_shift_data(self, seed):

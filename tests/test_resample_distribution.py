@@ -38,3 +38,8 @@ def test_get_labels():
     blocks_length = 2
     obtained_labels = get_labels(n_rows_original, blocks_length)
     assert max(obtained_labels) == 11
+
+    n_rows_original = 11
+    blocks_length = 5
+    obtained_labels = get_labels(n_rows_original, blocks_length)
+    assert max(obtained_labels) == 6

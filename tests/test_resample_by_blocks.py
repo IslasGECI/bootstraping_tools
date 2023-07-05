@@ -8,7 +8,7 @@ import random
 def test_resample_and_shift_data():
     blocks_length = 2
     block_size_2 = Size_blocks_tester(blocks_length)
-    block_size_2.set_expected([20, 30, 20, 30, 0, 10], [800, 900, 800, 900, 600, 700])
+    block_size_2.set_expected([30, 40, 30, 40, 0, 10], [900, 1000, 900, 1000, 600, 700])
     random_seed = 2
     block_size_2.assert_resample_and_shift_data(random_seed)
 

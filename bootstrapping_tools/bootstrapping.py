@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 from .n0_and_lambdas_intervals import get_percentile
-from .resample_by_blocks import random_resample_data_by_blocks
+from .resample_by_blocks import random_resample_data_by_blocks, xxrandom_resample_data_by_blocks
 from scipy.optimize import curve_fit
 from tqdm import tqdm
 
@@ -213,8 +213,20 @@ def resample_data(dataframe, seed, blocks_length):
     return random_resample_data_by_blocks(dataframe, blocks_length, rng)
 
 
+def xxresample_data(dataframe, seed, blocks_length):
+    rng = random.Random(seed)
+    return xxrandom_resample_data_by_blocks(dataframe, blocks_length, rng)
+
+
 def resample_and_shift_data(dataframe, seed, blocks_length):
     resampled_data = resample_data(dataframe, seed, blocks_length)
+    min_season = dataframe.loc[:, "Temporada"].min()
+    resampled_data.loc[:, "Temporada"] = resampled_data.loc[:, "Temporada"] - min_season
+    return resampled_data
+
+
+def xxresample_and_shift_data(dataframe, seed, blocks_length):
+    resampled_data = xxresample_data(dataframe, seed, blocks_length)
     min_season = dataframe.loc[:, "Temporada"].min()
     resampled_data.loc[:, "Temporada"] = resampled_data.loc[:, "Temporada"] - min_season
     return resampled_data

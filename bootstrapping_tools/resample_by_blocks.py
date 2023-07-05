@@ -1,16 +1,6 @@
 import numpy as np
 
 
-def random_resample_data_by_blocks(original_sample, blocks_length, rng):
-    n_rows_original = len(original_sample)
-    block_labels = _get_labels(n_rows_original, blocks_length)
-    length_block_labels = len(block_labels)
-    block_labels = rng.choices(block_labels, k=length_block_labels)
-    rows = _get_rows(block_labels, n_rows_original, blocks_length)
-    resample = original_sample.iloc[rows, :].reset_index(drop=True)
-    return resample
-
-
 def xxrandom_resample_data_by_blocks(original_sample, blocks_length, rng):
     n_rows_original = len(original_sample)
     block_labels = get_labels(n_rows_original, blocks_length)

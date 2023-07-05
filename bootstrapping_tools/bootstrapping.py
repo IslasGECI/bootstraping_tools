@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 from .n0_and_lambdas_intervals import get_percentile
-from .resample_by_blocks import random_resample_data_by_blocks, xxrandom_resample_data_by_blocks
+from .resample_by_blocks import xxrandom_resample_data_by_blocks
 from scipy.optimize import curve_fit
 from tqdm import tqdm
 

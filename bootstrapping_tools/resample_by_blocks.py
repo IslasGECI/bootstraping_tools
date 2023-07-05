@@ -30,8 +30,10 @@ def _get_rows(block_labels, n_rows_data, blocks_length):
 
 
 def get_rows(block_labels, blocks_length):
-    aux = block_labels
+    aux = list(block_labels)
+    aux_cycle = [i for i in range(blocks_length - 1)]
+    aux.extend(aux_cycle)
     rows = []
     for i in block_labels:
-        rows.extend(aux[0 + i : blocks_length + i])
+        rows.extend(aux[i : blocks_length + i])
     return rows

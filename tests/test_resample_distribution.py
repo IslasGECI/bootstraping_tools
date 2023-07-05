@@ -1,7 +1,35 @@
-from bootstrapping_tools import get_labels, resample_and_shift_data, xxget_labels, get_rows
+from bootstrapping_tools import (
+    get_labels,
+    resample_and_shift_data,
+    xxget_labels,
+    get_rows,
+)
+
+from collections import Counter
 import numpy as np
 import pandas as pd
 import random
+import math
+
+
+def test_proportions():
+    N = 10000
+    n_rows_data = 8
+    blocks_length = 3
+    number_of_blocks_to_choose = 3
+    block_labels = np.arange(n_rows_data)
+    obtained_rows = []
+    for i in range(N):
+        choosen_block_labels = random.choices(block_labels, k=number_of_blocks_to_choose)
+        rows = get_rows(choosen_block_labels, n_rows_data, blocks_length)
+        obtained_rows.extend(rows)
+    ocurrences = Counter(obtained_rows)
+    print(np.std(obtained_rows) ** 2)
+    print(ocurrences)
+    obtained_mean = np.mean(obtained_rows)
+    print(obtained_mean)
+    expected_mean = 0.5 * (n_rows_data - 1)
+    assert math.isclose(obtained_mean, expected_mean, rel_tol=1e-2)
 
 
 def test_distribution():

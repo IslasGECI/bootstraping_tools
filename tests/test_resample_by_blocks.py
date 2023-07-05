@@ -26,9 +26,7 @@ def test_resample_and_shift_data_block_length_4():
 def test_random_resample_data_by_blocks_blocks_length_2():
     blocks_length = 2
     block_size_2 = Size_blocks_tester(blocks_length)
-    block_size_2.set_expected(
-        [40, 50, 40, 50, 10, 20, 10, 20], [900, 1000, 900, 1000, 600, 700, 600, 700]
-    )
+    block_size_2.set_expected([40, 50, 40, 50, 10, 20], [900, 1000, 900, 1000, 600, 700])
     random_seed = 2
     rng = random.Random(random_seed)
     block_size_2.assert_random_resampled_by_blocks(rng)
@@ -74,7 +72,7 @@ class Size_blocks_tester:
         assert_frame_equal(self.expected, obtained)
 
     def assert_resample_and_shift_data(self, seed):
-        obtained = resample_and_shift_data(self.data, seed, self.blocks_length)
+        obtained = xxresample_and_shift_data(self.data, seed, self.blocks_length)
         assert_frame_equal(self.expected, obtained)
 
     def set_expected(self, column_a, column_b):

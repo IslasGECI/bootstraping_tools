@@ -52,6 +52,13 @@ def test_length_block_labels():
     blocks_number = np.ceil(n_rows_data / blocks_length)
     assert lenght_block_labels <= blocks_number
 
+    blocks_length = 2
+    lenght_block_labels = 3
+    block_size_5 = Size_blocks_tester(blocks_length)
+    n_rows_data = len(block_size_5.data)
+    blocks_number = np.ceil(n_rows_data / blocks_length)
+    assert lenght_block_labels <= blocks_number
+
 
 class Size_blocks_tester:
     def __init__(self, blocks_length):

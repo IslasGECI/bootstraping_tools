@@ -38,3 +38,9 @@ def test_get_labels():
     blocks_length = 2
     obtained_labels = xxget_labels(n_rows_original)
     assert max(obtained_labels) == 12
+
+
+def tests_get_rows():
+    blocks_length = 3
+    block_labels = np.arange(8, dtype=int)
+    get_rows(block_labels, blocks_length)

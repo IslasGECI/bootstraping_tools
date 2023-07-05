@@ -52,5 +52,5 @@ def tests_get_rows():
     blocks_length = 3
     block_labels = np.array([4, 6, 2])
     obtained_rows = get_rows(block_labels, n_rows_data, blocks_length)
-    expected_rows = [5, 6, 7, 7, 8, 9, 2, 3, 4]
+    expected_rows = [4, 5, 6, 6, 7, 0, 2, 3, 4]
     assert obtained_rows == expected_rows

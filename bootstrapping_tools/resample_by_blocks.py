@@ -29,8 +29,8 @@ def _get_rows(block_labels, n_rows_data, blocks_length):
     return rows
 
 
-def get_rows(block_labels, blocks_length):
-    aux = list(block_labels)
+def get_rows(block_labels, n_rows_data, blocks_length):
+    aux = [i for i in range(n_rows_data)]
     aux_cycle = [i for i in range(blocks_length - 1)]
     aux.extend(aux_cycle)
     rows = []

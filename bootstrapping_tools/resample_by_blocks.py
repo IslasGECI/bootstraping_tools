@@ -17,6 +17,10 @@ def get_labels(n_rows_original, blocks_length):
     return block_labels
 
 
+def xxget_labels(n_rows_original):
+    return np.arange(n_rows_original, dtype=int)
+
+
 def _get_rows(block_labels, n_rows_data, blocks_length):
     aux = np.arange(n_rows_data)
     rows = []

@@ -44,4 +44,6 @@ def test_get_labels():
 def tests_get_rows():
     blocks_length = 3
     block_labels = np.arange(8, dtype=int)
-    get_rows(block_labels, blocks_length)
+    obtained_rows = get_rows(block_labels, blocks_length)
+    expected_rows = [0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7, 6, 7, 0, 7, 0, 1]
+    assert obtained_rows == expected_rows

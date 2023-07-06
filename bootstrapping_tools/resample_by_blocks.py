@@ -3,7 +3,7 @@ import numpy as np
 
 def random_resample_data_by_blocks(original_sample, blocks_length, rng):
     n_rows_original = len(original_sample)
-    block_labels = xxget_labels(n_rows_original)
+    block_labels = get_labels(n_rows_original)
     number_of_blocks_to_choose = int(np.ceil(n_rows_original / blocks_length))
     choosen_block_labels = rng.choices(block_labels, k=number_of_blocks_to_choose)
     rows = get_rows(choosen_block_labels, n_rows_original, blocks_length)
@@ -11,7 +11,7 @@ def random_resample_data_by_blocks(original_sample, blocks_length, rng):
     return resample
 
 
-def xxget_labels(n_rows_original):
+def get_labels(n_rows_original):
     return np.arange(n_rows_original, dtype=int)
 
 

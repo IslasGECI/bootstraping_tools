@@ -15,14 +15,6 @@ def get_labels(n_rows_original):
     return np.arange(n_rows_original, dtype=int)
 
 
-def _get_rows(block_labels, n_rows_data, blocks_length):
-    aux = np.arange(n_rows_data)
-    rows = []
-    for i in block_labels:
-        rows.extend(aux[0 + i : blocks_length + i])
-    return rows
-
-
 def get_rows(block_labels, n_rows_data, blocks_length):
     aux = [i for i in range(n_rows_data)]
     aux_cycle = [i for i in range(blocks_length - 1)]

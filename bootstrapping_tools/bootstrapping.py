@@ -191,7 +191,7 @@ def bootstrap_from_time_series(
     rand = 0
     print("Calculating bootstrap growth rates distribution:")
     while cont < N:
-        resampled_data = resample_and_shift_data(dataframe, rand, blocks_length)
+        resampled_data = xxresample_and_shift_data(dataframe, rand, blocks_length)
         try:
             fitting_result = lambda_calculator_from_resampled_data(
                 resampled_data["Temporada"], resampled_data[column_name]

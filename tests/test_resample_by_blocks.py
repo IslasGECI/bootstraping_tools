@@ -5,6 +5,7 @@ from bootstrapping_tools import (
     random_resample_data_by_blocks,
     xxrandom_resample_data_by_blocks,
     resample_and_shift_data,
+    xxresample_and_shift_data,
 )
 import random
 
@@ -12,7 +13,7 @@ import random
 def test_resample_and_shift_data():
     blocks_length = 2
     block_size_2 = Size_blocks_tester(blocks_length)
-    block_size_2.set_expected([30, 40, 30, 40, 0, 10], [900, 1000, 900, 1000, 600, 700])
+    block_size_2.set_expected([40, 0, 40, 0, 0, 10], [1000, 600, 1000, 600, 600, 700])
     random_seed = 2
     block_size_2.assert_resample_and_shift_data(random_seed)
 
@@ -21,7 +22,7 @@ def test_resample_and_shift_data_block_length_4():
     blocks_length = 4
     block_size_4 = Size_blocks_tester(blocks_length)
     block_size_4.set_expected(
-        [10, 20, 30, 40, 10, 20, 30, 40], [700, 800, 900, 1000, 700, 800, 900, 1000]
+        [40, 0, 10, 20, 40, 0, 10, 20], [1000, 600, 700, 800, 1000, 600, 700, 800]
     )
     random_seed = 2
     block_size_4.assert_resample_and_shift_data(random_seed)
@@ -76,7 +77,7 @@ class Size_blocks_tester:
         assert_frame_equal(self.expected, obtained)
 
     def assert_resample_and_shift_data(self, seed):
-        obtained = resample_and_shift_data(self.data, seed, self.blocks_length)
+        obtained = xxresample_and_shift_data(self.data, seed, self.blocks_length)
         assert_frame_equal(self.expected, obtained)
 
     def set_expected(self, column_a, column_b):

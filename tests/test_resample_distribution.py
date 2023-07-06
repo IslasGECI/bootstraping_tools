@@ -1,6 +1,5 @@
 from bootstrapping_tools import (
     get_labels,
-    resample_and_shift_data,
     xxresample_and_shift_data,
     xxget_labels,
     get_rows,

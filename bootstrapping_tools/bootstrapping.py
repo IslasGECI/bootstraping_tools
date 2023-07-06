@@ -208,11 +208,6 @@ def bootstrap_from_time_series(
     return get_percentile(bootstrap_tuples, limits)
 
 
-def resample_data(dataframe, seed, blocks_length):
-    rng = random.Random(seed)
-    return random_resample_data_by_blocks(dataframe, blocks_length, rng)
-
-
 def xxresample_data(dataframe, seed, blocks_length):
     rng = random.Random(seed)
     return xxrandom_resample_data_by_blocks(dataframe, blocks_length, rng)

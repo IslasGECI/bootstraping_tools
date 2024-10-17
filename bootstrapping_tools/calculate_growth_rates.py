@@ -118,6 +118,12 @@ class AbstractSeriesBoostrapper(ABC):
             if (lambda_n0[0] > self.intervals[0][0]) and (lambda_n0[0] < self.intervals[2][0])
         ]
 
+    @abstractmethod
+    def save_intervals(self):
+        pass
+
+
+class LambdasBoostrapper(AbstractSeriesBoostrapper):
     def save_intervals(self, output_path):
         json_dict = {
             "intervals": list(self.intervals),
@@ -127,8 +133,3 @@ class AbstractSeriesBoostrapper(ABC):
         }
         with open(output_path, "w") as file:
             json.dump(json_dict, file)
-
-
-class LambdasBoostrapper(AbstractSeriesBoostrapper):
-    def save_intervals(self, output_path):
-        return super().save_intervals(output_path)

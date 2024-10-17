@@ -40,12 +40,6 @@ class Bootstrap_from_time_series_parametrizer:
         self.parameters["dataframe"] = data
 
 
-Bootstrap = dict(
-    default=Bootstrap_from_time_series_parametrizer(),
-    testing=Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100),
-)
-
-
 def fit_population_model(seasons_series, data_series):
     parameters = lambda_calculator(seasons_series, data_series)
     model = power_law(

@@ -63,6 +63,15 @@ class AbstractSeriesBoostrapper(ABC):
         self.interval_lambdas = [interval[0] for interval in self.intervals]
         self.lambda_latex_interval = self.get_lambda_interval_latex_string()
 
+    @abstractmethod
+    def save_intervals(self):
+        pass
+
+
+class LambdasBoostrapper(AbstractSeriesBoostrapper):
+    def __init__(self, bootstrap_parametrizer):
+        super().__init__(bootstrap_parametrizer)
+
     def intervals_from_p_values_and_alpha(self):
         intervals = calculate_intervals_from_p_values_and_alpha(
             self.lambdas_n0_distribution, self.p_values, self.parameters["alpha"]
@@ -118,12 +127,6 @@ class AbstractSeriesBoostrapper(ABC):
             if (lambda_n0[0] > self.intervals[0][0]) and (lambda_n0[0] < self.intervals[2][0])
         ]
 
-    @abstractmethod
-    def save_intervals(self):
-        pass
-
-
-class LambdasBoostrapper(AbstractSeriesBoostrapper):
     def save_intervals(self, output_path):
         json_dict = {
             "intervals": list(self.intervals),

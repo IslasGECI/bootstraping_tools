@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 import json
 import os
-from bootstrapping_tools import Bootstrap, Bootstrap_from_time_series
+from bootstrapping_tools import Bootstrap_from_time_series_parametrizer, Bootstrap_from_time_series
 
 
 nidos_array = [
@@ -24,7 +24,7 @@ def get_df(file_path):
 
 df = get_df("tests/data/dcco_laal_gumu_burrows_data.csv")
 laal = df[df["Nombre_en_ingles"] == "Laysan Albatross"]
-parametrizer = Bootstrap["testing"]
+parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
 parametrizer.set_data(laal)
 bootstraper = Bootstrap_from_time_series(parametrizer)
 
@@ -60,7 +60,7 @@ def test_save_intervals():
 
 def test_intervals_from_p_values_and_alpha():
     dcco = df[df["Nombre_en_ingles"] == "Double-crested Cormorant"]
-    parametrizer = Bootstrap["testing"]
+    parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
     parametrizer.set_data(dcco)
     assert parametrizer.parameters["alpha"] == 0.05
     bootstraper = Bootstrap_from_time_series(parametrizer)
@@ -81,7 +81,7 @@ def test_intervals_from_p_values_and_alpha():
 def test_generate_season_interval():
     datos_di = {"Temporada": [1, 2, 3, 4, 5], "Maxima_cantidad_nidos": [1, 1, 1, 1, 1]}
     df = pd.DataFrame(datos_di)
-    parametrizer = Bootstrap["testing"]
+    parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
     parametrizer.set_data(df)
     bootstraper = Bootstrap_from_time_series(parametrizer)
     expected_interval = "(1-5)"
@@ -108,7 +108,7 @@ testdata = [
 @pytest.mark.parametrize("path,expected_seasons", testdata)
 def test_get_monitored_seasons(path, expected_seasons):
     burrows_data_dataframe = get_df(path)
-    parametrizer = Bootstrap["testing"]
+    parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
     parametrizer.set_data(burrows_data_dataframe)
     bootstraper = Bootstrap_from_time_series(parametrizer)
     obtained_seasons = bootstraper.get_monitored_seasons()

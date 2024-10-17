@@ -1,4 +1,4 @@
-from bootstrapping_tools import (
+from bootstrapping_tools.bootstrapping import (
     bootstrap_from_time_series,
     calculate_intervals_from_p_values_and_alpha,
     calculate_p_values,

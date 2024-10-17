@@ -127,3 +127,7 @@ class AbstractSeriesBoostrapper(ABC):
         }
         with open(output_path, "w") as file:
             json.dump(json_dict, file)
+
+
+class LambdasBoostrapper(AbstractSeriesBoostrapper):
+    pass

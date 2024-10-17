@@ -68,7 +68,7 @@ class AbstractSeriesBoostrapper(ABC):
         pass
 
 
-class LambdasBoostrapper(AbstractSeriesBoostrapper):
+class LambdasBootstrapper(AbstractSeriesBoostrapper):
     def __init__(self, bootstrap_parametrizer):
         super().__init__(bootstrap_parametrizer)
 

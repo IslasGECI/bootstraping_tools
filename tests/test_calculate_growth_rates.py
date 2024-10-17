@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 import json
 import os
-from bootstrapping_tools import Bootstrap_from_time_series_parametrizer, LambdasBoostrapper
+from bootstrapping_tools import Bootstrap_from_time_series_parametrizer, LambdasBootstrapper
 
 
 nidos_array = [
@@ -26,7 +26,7 @@ df = get_df("tests/data/dcco_laal_gumu_burrows_data.csv")
 laal = df[df["Nombre_en_ingles"] == "Laysan Albatross"]
 parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
 parametrizer.set_data(laal)
-bootstraper = LambdasBoostrapper(parametrizer)
+bootstraper = LambdasBootstrapper(parametrizer)
 
 
 def test_save_intervals():
@@ -63,7 +63,7 @@ def test_intervals_from_p_values_and_alpha():
     parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
     parametrizer.set_data(dcco)
     assert parametrizer.parameters["alpha"] == 0.05
-    bootstraper = LambdasBoostrapper(parametrizer)
+    bootstraper = LambdasBootstrapper(parametrizer)
     obtained_intervals = bootstraper.intervals_from_p_values_and_alpha()
     print(obtained_intervals)
     obtained_len_intervals = len(obtained_intervals)
@@ -83,7 +83,7 @@ def test_generate_season_interval():
     df = pd.DataFrame(datos_di)
     parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
     parametrizer.set_data(df)
-    bootstraper = LambdasBoostrapper(parametrizer)
+    bootstraper = LambdasBootstrapper(parametrizer)
     expected_interval = "(1-5)"
     obtained_interval = bootstraper.generate_season_interval()
     assert expected_interval == obtained_interval
@@ -110,6 +110,6 @@ def test_get_monitored_seasons(path, expected_seasons):
     burrows_data_dataframe = get_df(path)
     parametrizer = Bootstrap_from_time_series_parametrizer(blocks_length=2, N=100)
     parametrizer.set_data(burrows_data_dataframe)
-    bootstraper = LambdasBoostrapper(parametrizer)
+    bootstraper = LambdasBootstrapper(parametrizer)
     obtained_seasons = bootstraper.get_monitored_seasons()
     assert expected_seasons == obtained_seasons

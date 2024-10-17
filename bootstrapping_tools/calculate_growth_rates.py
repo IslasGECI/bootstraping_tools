@@ -130,4 +130,5 @@ class AbstractSeriesBoostrapper(ABC):
 
 
 class LambdasBoostrapper(AbstractSeriesBoostrapper):
-    pass
+    def save_intervals(self, output_path):
+        return super().save_intervals(output_path)

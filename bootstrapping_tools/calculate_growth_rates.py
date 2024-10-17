@@ -10,6 +10,7 @@ from bootstrapping_tools.bootstrapping import (
 
 import json
 import numpy as np
+from abc import ABC, abstractmethod
 
 
 def calculate_seasons_intervals(seasons):
@@ -50,7 +51,7 @@ def fit_population_model(seasons_series, data_series):
     return model
 
 
-class AbstractSeriesBoostrapper:
+class AbstractSeriesBoostrapper(ABC):
     def __init__(self, bootstrap_parametrizer):
         self.parameters = bootstrap_parametrizer.parameters
         self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()

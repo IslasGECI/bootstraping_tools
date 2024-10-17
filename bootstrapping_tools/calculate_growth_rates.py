@@ -50,7 +50,7 @@ def fit_population_model(seasons_series, data_series):
     return model
 
 
-class Bootstrap_from_time_series:
+class AbstractSeriesBoostrapper:
     def __init__(self, bootstrap_parametrizer):
         self.parameters = bootstrap_parametrizer.parameters
         self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()

@@ -27,7 +27,14 @@ def calculate_seasons_intervals(seasons):
 
 
 class Bootstrap_from_time_series_parametrizer:
-    def __init__(self, blocks_length=3, N=2000, column_name="Maxima_cantidad_nidos", alpha=0.05):
+    def __init__(
+        self,
+        blocks_length=3,
+        N=2000,
+        column_name="Maxima_cantidad_nidos",
+        dependent_variable="Temporada",
+        alpha=0.05,
+    ):
         self.parameters = dict(
             dataframe=None,
             column_name=column_name,
@@ -36,8 +43,10 @@ class Bootstrap_from_time_series_parametrizer:
             blocks_length=blocks_length,
             alpha=alpha,
         )
+        self.dependent_variable = dependent_variable
 
     def set_data(self, data):
+        data.rename(columns={self.dependent_variable: "Temporada"}, inplace=True)
         self.parameters["dataframe"] = data
 
 

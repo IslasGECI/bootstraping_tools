@@ -20,6 +20,6 @@ def test_ProgressBootstrapper():
     bootstrapper = ProgressBootstrapper(parametrizer)
 
     obtained_cpue = bootstrapper.data_series
-    assert "CPUE" in obtained_cpue.name
+    assert "CPUE" in obtained_cpue.columns
     expected_cpue = [19.5, 19, 18.5, 18, 17.5, 17]
     assert (obtained_cpue.CPUE == expected_cpue).all()

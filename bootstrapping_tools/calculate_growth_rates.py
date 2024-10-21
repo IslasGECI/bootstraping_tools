@@ -46,7 +46,7 @@ class Bootstrap_from_time_series_parametrizer:
         self.independent_variable = independent_variable
 
     def set_data(self, data):
-        data.rename(columns={self.independent_variable: "Temporada"}, inplace=True)
+        data["Temporada"] = data[self.independent_variable]
         self.parameters["dataframe"] = data
 
 

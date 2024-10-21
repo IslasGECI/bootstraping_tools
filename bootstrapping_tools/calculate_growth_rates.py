@@ -63,38 +63,20 @@ class AbstractSeriesBootstrapper(ABC):
         self.interval_lambdas = [interval[0] for interval in self.intervals]
         self.lambda_latex_interval = self.get_lambda_interval_latex_string()
 
-    @abstractmethod
-    def save_intervals(self):
-        pass
-
-
-class LambdasBootstrapper(AbstractSeriesBootstrapper):
-    def __init__(self, bootstrap_parametrizer):
-        super().__init__(bootstrap_parametrizer)
-
-    def intervals_from_p_values_and_alpha(self):
-        intervals = calculate_intervals_from_p_values_and_alpha(
-            self.lambdas_n0_distribution, self.p_values, self.parameters["alpha"]
-        )
-        return intervals
+    def _calculate_distribution_and_interval(self):
+        lambdas_n0_distribution, intervals = bootstrap_from_time_series(**self.parameters)
+        return lambdas_n0_distribution, intervals
 
     def get_p_values(self):
         p_value_mayor, p_value_menor = calculate_p_values(self.lambdas)
         p_values = (p_value_mayor, p_value_menor)
         return p_values
 
-    def get_distribution(self):
-        return self.lambdas_n0_distribution
-
-    def _calculate_distribution_and_interval(self):
-        lambdas_n0_distribution, intervals = bootstrap_from_time_series(**self.parameters)
-        return lambdas_n0_distribution, intervals
-
-    def get_inferior_central_and_superior_limit(self):
-        inferior_limit, central, superior_limit = get_bootstrap_deltas(
-            self.interval_lambdas, **{"decimals": 2}
+    def intervals_from_p_values_and_alpha(self):
+        intervals = calculate_intervals_from_p_values_and_alpha(
+            self.lambdas_n0_distribution, self.p_values, self.parameters["alpha"]
         )
-        return inferior_limit, central, superior_limit
+        return intervals
 
     def get_lambda_interval_latex_string(self):
         lambda_latex_string = generate_latex_interval_string(
@@ -116,17 +98,6 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
             seasons_intervals = calculate_seasons_intervals(monitored_seasons)
             return ",".join(seasons_intervals)
 
-    def fit_population_model(self):
-        model = fit_population_model(self.season_series, self.data_series)
-        return model
-
-    def get_intermediate_lambdas(self):
-        return [
-            lambda_n0
-            for lambda_n0 in self.lambdas_n0_distribution
-            if (lambda_n0[0] > self.intervals[0][0]) and (lambda_n0[0] < self.intervals[2][0])
-        ]
-
     def save_intervals(self, output_path):
         json_dict = {
             "intervals": list(self.intervals),
@@ -136,3 +107,28 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
         }
         with open(output_path, "w") as file:
             json.dump(json_dict, file)
+
+    def get_intermediate_lambdas(self):
+        return [
+            lambda_n0
+            for lambda_n0 in self.lambdas_n0_distribution
+            if (lambda_n0[0] > self.intervals[0][0]) and (lambda_n0[0] < self.intervals[2][0])
+        ]
+
+
+class LambdasBootstrapper(AbstractSeriesBootstrapper):
+    def __init__(self, bootstrap_parametrizer):
+        super().__init__(bootstrap_parametrizer)
+
+    def get_distribution(self):
+        return self.lambdas_n0_distribution
+
+    def get_inferior_central_and_superior_limit(self):
+        inferior_limit, central, superior_limit = get_bootstrap_deltas(
+            self.interval_lambdas, **{"decimals": 2}
+        )
+        return inferior_limit, central, superior_limit
+
+    def fit_population_model(self):
+        model = fit_population_model(self.season_series, self.data_series)
+        return model

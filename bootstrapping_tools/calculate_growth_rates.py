@@ -65,7 +65,6 @@ class AbstractSeriesBootstrapper(ABC):
         self.parameters = bootstrap_parametrizer.parameters
         self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()
         self.season_series = self.parameters["dataframe"]["Temporada"]
-        self.data_series = self.parameters["dataframe"][self.parameters["column_name"]]
         self.lambdas = [lambdas_n0[0] for lambdas_n0 in self.lambdas_n0_distribution]
         self.p_values = self.get_p_values()
         self.intervals = self.intervals_from_p_values_and_alpha()
@@ -128,6 +127,7 @@ class AbstractSeriesBootstrapper(ABC):
 class LambdasBootstrapper(AbstractSeriesBootstrapper):
     def __init__(self, bootstrap_parametrizer):
         super().__init__(bootstrap_parametrizer)
+        self.data_series = self.parameters["dataframe"][self.parameters["column_name"]]
 
     def get_distribution(self):
         return self.lambdas_n0_distribution

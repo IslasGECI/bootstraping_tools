@@ -10,7 +10,7 @@ from bootstrapping_tools.bootstrapping import (
 
 import json
 import numpy as np
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 def calculate_seasons_intervals(seasons):

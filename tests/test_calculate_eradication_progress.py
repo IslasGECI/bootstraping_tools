@@ -13,8 +13,12 @@ raw_data = pd.DataFrame(
 
 def test_ProgressBootstrapper():
     independent_variable = "Capturas"
+    bootstrap_number = 100
     parametrizer = Bootstrap_from_time_series_parametrizer(
-        blocks_length=1, column_name="CPUE", N=100, independent_variable=independent_variable
+        blocks_length=1,
+        column_name="CPUE",
+        N=bootstrap_number,
+        independent_variable=independent_variable,
     )
     parametrizer.set_data(raw_data)
     bootstrapper = ProgressBootstrapper(parametrizer)
@@ -23,3 +27,7 @@ def test_ProgressBootstrapper():
     assert "CPUE" in obtained_cpue.columns
     expected_cpue = [19.5, 19, 18.5, 18, 17.5, 17]
     assert (obtained_cpue.CPUE == expected_cpue).all()
+
+    obtained = bootstrapper.parameters_distribution
+    obtained_rows = len(obtained)
+    assert obtained_rows == bootstrap_number

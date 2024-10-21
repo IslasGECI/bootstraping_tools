@@ -12,9 +12,9 @@ raw_data = pd.DataFrame(
 
 
 def test_ProgressBootstrapper():
-    dependent_variable = "Capturas"
+    independent_variable = "Capturas"
     parametrizer = Bootstrap_from_time_series_parametrizer(
-        blocks_length=1, column_name="CPUE", N=100, dependent_variable=dependent_variable
+        blocks_length=1, column_name="CPUE", N=100, independent_variable=independent_variable
     )
     parametrizer.set_data(raw_data)
     bootstrapper = ProgressBootstrapper(parametrizer)

@@ -32,7 +32,7 @@ class Bootstrap_from_time_series_parametrizer:
         blocks_length=3,
         N=2000,
         column_name="Maxima_cantidad_nidos",
-        dependent_variable="Temporada",
+        independent_variable="Temporada",
         alpha=0.05,
     ):
         self.parameters = dict(
@@ -43,10 +43,10 @@ class Bootstrap_from_time_series_parametrizer:
             blocks_length=blocks_length,
             alpha=alpha,
         )
-        self.dependent_variable = dependent_variable
+        self.independent_variable = independent_variable
 
     def set_data(self, data):
-        data.rename(columns={self.dependent_variable: "Temporada"}, inplace=True)
+        data.rename(columns={self.independent_variable: "Temporada"}, inplace=True)
         self.parameters["dataframe"] = data
 
 

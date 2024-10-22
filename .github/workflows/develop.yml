@@ -62,5 +62,6 @@ jobs:
       with:
         name: mutant registry
         path: html
-    - name: Output artifact ID
-      run: [[ -z ${{ steps.artifact-upload-step.outputs.artifact-id }} ]]
+    - name: Error if there are mutants
+      if: "${{ steps.artifact-upload-step.outputs.artifact-id  == '' }}"
+      run: exit 1

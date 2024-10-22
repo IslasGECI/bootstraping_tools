@@ -6,7 +6,9 @@ import numpy as np
 class ProgressBootstrapper(AbstractSeriesBootstrapper):
     def __init__(self, bootstrapper_parametrizer):
         bootstrapper_parametrizer.parameters["dataframe"]["CPUE"] = 1
-        super().__init__(bootstrapper_parametrizer)
+        self.bootstrap_config = bootstrapper_parametrizer.parameters
+        self.season_series = self.bootstrap_config["dataframe"]["Temporada"]
+        self.parameters_distribution, _ = self._calculate_distribution_and_interval()
         self.data_series = self.add_cpue()
         self.parameters_distribution = self.get_parameters_distribution()
 

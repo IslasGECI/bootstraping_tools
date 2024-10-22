@@ -10,7 +10,7 @@ from bootstrapping_tools.bootstrapping import (
 
 import json
 import numpy as np
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 def calculate_seasons_intervals(seasons):
@@ -61,10 +61,10 @@ def fit_population_model(seasons_series, data_series):
 
 
 class AbstractSeriesBootstrapper(ABC):
-    def __init__(self, bootstrap_parametrizer):
-        self.bootstrap_config = bootstrap_parametrizer.parameters
-        self.season_series = self.bootstrap_config["dataframe"]["Temporada"]
-        self.parameters_distribution, _ = self._calculate_distribution_and_interval()
+
+    @abstractmethod
+    def get_parameters_distribution(self):
+        pass
 
     def _calculate_distribution_and_interval(self):
         lambdas_n0_distribution, intervals = bootstrap_from_time_series(**self.bootstrap_config)
@@ -129,8 +129,13 @@ class AbstractSeriesBootstrapper(ABC):
 
 class LambdasBootstrapper(AbstractSeriesBootstrapper):
     def __init__(self, bootstrap_parametrizer):
+        self.bootstrap_config = bootstrap_parametrizer.parameters
         self.data_series = self.bootstrap_config["dataframe"][self.bootstrap_config["column_name"]]
-        super().__init__(bootstrap_parametrizer)
+        self.season_series = self.bootstrap_config["dataframe"]["Temporada"]
+        self.parameters_distribution, _ = self._calculate_distribution_and_interval()
+
+    def get_parameters_distribution(self):
+        pass
 
     def get_distribution(self):
         return self.parameters_distribution

@@ -64,7 +64,7 @@ def test_intervals_from_p_values_and_alpha():
     parametrizer.set_data(dcco)
     assert parametrizer.parameters["alpha"] == 0.05
     bootstraper = AbstractSeriesBootstrapper(parametrizer)
-    obtained_intervals = bootstraper.intervals_from_p_values_and_alpha()
+    obtained_intervals = bootstraper.intervals
     print(obtained_intervals)
     obtained_len_intervals = len(obtained_intervals)
     expected_len_intervals = 3

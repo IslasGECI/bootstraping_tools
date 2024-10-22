@@ -42,18 +42,17 @@ def test_save_intervals():
         "bootstrap_intermediate_distribution",
     ]
     assert set(obtained_fields) == set(expected_fields)
-    obtained_values = list(obtained_json.values())
     expected_intervals = [[1.11653, 150.30929], [1.21173, 77.48159], [1.4272, 4.56072]]
-    assert_array_almost_equal(obtained_values[0], expected_intervals, decimal=5)
+    assert_array_almost_equal(obtained_json["intervals"], expected_intervals, decimal=5)
     expected_latex_interval = "1.21 (1.12 - 1.43)"
-    assert obtained_values[1] == expected_latex_interval
-    obtained_p_minor_value = obtained_values[2][0]
+    assert obtained_json["lambda_latex_interval"] == expected_latex_interval
+    obtained_p_minor_value = obtained_json["p-values"][0]
     assert obtained_p_minor_value >= 0
-    obtained_p_major_value = obtained_values[2][1]
+    obtained_p_major_value = obtained_json["p-values"][1]
     assert obtained_p_major_value <= 1
-    obtained_min_lambda = min(obtained_values[3])
+    obtained_min_lambda = min(obtained_json["bootstrap_intermediate_distribution"])
     assert obtained_min_lambda[0] >= expected_intervals[0][0]
-    obtained_max_lambda = max(obtained_values[3])
+    obtained_max_lambda = max(obtained_json["bootstrap_intermediate_distribution"])
     assert obtained_max_lambda[0] <= expected_intervals[2][0]
     os.remove(output_path)
 

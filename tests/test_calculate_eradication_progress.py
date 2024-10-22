@@ -1,5 +1,5 @@
 import pandas as pd
-
+import json
 
 from bootstrapping_tools import Bootstrap_from_time_series_parametrizer, ProgressBootstrapper
 
@@ -31,3 +31,16 @@ def test_ProgressBootstrapper():
     obtained = bootstrapper.parameters_distribution
     obtained_rows = len(obtained)
     assert obtained_rows == bootstrap_number
+
+    output_path = "tests/data/progress_intervals.json"
+    bootstrapper.save_intervals(output_path)
+    with open(output_path) as json_file:
+        obtained_json = json.load(json_file)
+    obtained_fields = list(obtained_json.keys())
+    expected_fields = [
+        "intervals",
+        "lambda_latex_interval",
+        "p-values",
+        "bootstrap_intermediate_distribution",
+    ]
+    assert obtained_fields == expected_fields

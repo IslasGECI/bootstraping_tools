@@ -55,5 +55,12 @@ jobs:
     - name: Construye imagen
       run: docker build --tag islasgeci/bootstrapping_tools:latest --tag islasgeci/bootstrapping_tools:${GITHUB_SHA:0:4} .
     - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/bootstrapping_tools:latest make mutants
-  
+      run: docker run --volume $PWD:/workdir islasgeci/bootstrapping_tools:latest make mutants
+    - name: Upload
+      uses: actions/upload-artifact@main
+      id: artifact-upload-step
+      with:
+        name: mutant registry
+        path: html
+    - name: Output artifact ID
+      run: [[ -z ${{ steps.artifact-upload-step.outputs.artifact-id }} ]]

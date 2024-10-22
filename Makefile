@@ -60,7 +60,8 @@ linter:
 	$(call lint, tests)
 
 mutants: install
-	mutmut run --paths-to-mutate ${module}
+	mutmut run --paths-to-mutate ${module} || \
+	mutmut html
 
 mutants_bootstrapping: install
 	mutmut run --paths-to-mutate bootstrapping_tools/bootstrapping.py

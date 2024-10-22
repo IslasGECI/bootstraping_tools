@@ -26,7 +26,7 @@ class ProgressBootstrapper(AbstractSeriesBootstrapper):
             parameters = fit_ramsey_plot(sample)
             is_valid = -parameters[1] / parameters[0] > captures
             if is_valid:
-                distribution.append(parameters)
+                distribution.append((parameters[0], parameters[1]))
             distribution_size = len(distribution)
         return distribution
 

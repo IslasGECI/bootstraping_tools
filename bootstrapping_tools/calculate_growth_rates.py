@@ -117,9 +117,10 @@ class AbstractSeriesBootstrapper(ABC):
 
     def get_parameters_inside_confidence_interval(self):
         return [
-            lambda_n0
-            for lambda_n0 in self.parameters_distribution
-            if (lambda_n0[0] > self.intervals[0][0]) and (lambda_n0[0] < self.intervals[2][0])
+            parameters_tuple
+            for parameters_tuple in self.parameters_distribution
+            if (parameters_tuple[0] > self.intervals[0][0])
+            and (parameters_tuple[0] < self.intervals[2][0])
         ]
 
 

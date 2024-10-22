@@ -63,8 +63,8 @@ def fit_population_model(seasons_series, data_series):
 class AbstractSeriesBootstrapper(ABC):
     def __init__(self, bootstrap_parametrizer):
         self.parameters = bootstrap_parametrizer.parameters
-        self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()
         self.season_series = self.parameters["dataframe"]["Temporada"]
+        self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()
         self.lambdas = [lambdas_n0[0] for lambdas_n0 in self.lambdas_n0_distribution]
         self.p_values = self.get_p_values()
         self.intervals = self.intervals_from_p_values_and_alpha()

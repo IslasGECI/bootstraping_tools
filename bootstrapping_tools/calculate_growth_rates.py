@@ -62,8 +62,8 @@ def fit_population_model(seasons_series, data_series):
 
 class AbstractSeriesBootstrapper(ABC):
     def __init__(self, bootstrap_parametrizer):
-        self.parameters = bootstrap_parametrizer.parameters
-        self.season_series = self.parameters["dataframe"]["Temporada"]
+        self.bootstrap_config = bootstrap_parametrizer.parameters
+        self.season_series = self.bootstrap_config["dataframe"]["Temporada"]
         self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()
         self.lambdas = [lambdas_n0[0] for lambdas_n0 in self.lambdas_n0_distribution]
         self.p_values = self.get_p_values()
@@ -72,7 +72,7 @@ class AbstractSeriesBootstrapper(ABC):
         self.lambda_latex_interval = self.get_lambda_interval_latex_string()
 
     def _calculate_distribution_and_interval(self):
-        lambdas_n0_distribution, intervals = bootstrap_from_time_series(**self.parameters)
+        lambdas_n0_distribution, intervals = bootstrap_from_time_series(**self.bootstrap_config)
         return lambdas_n0_distribution, intervals
 
     def get_p_values(self):
@@ -82,7 +82,7 @@ class AbstractSeriesBootstrapper(ABC):
 
     def intervals_from_p_values_and_alpha(self):
         intervals = calculate_intervals_from_p_values_and_alpha(
-            self.lambdas_n0_distribution, self.p_values, self.parameters["alpha"]
+            self.lambdas_n0_distribution, self.p_values, self.bootstrap_config["alpha"]
         )
         return intervals
 
@@ -126,8 +126,8 @@ class AbstractSeriesBootstrapper(ABC):
 
 class LambdasBootstrapper(AbstractSeriesBootstrapper):
     def __init__(self, bootstrap_parametrizer):
+        self.data_series = self.bootstrap_config["dataframe"][self.bootstrap_config["column_name"]]
         super().__init__(bootstrap_parametrizer)
-        self.data_series = self.parameters["dataframe"][self.parameters["column_name"]]
 
     def get_distribution(self):
         return self.lambdas_n0_distribution

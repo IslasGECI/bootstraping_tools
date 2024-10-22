@@ -10,7 +10,7 @@ class ProgressBootstrapper(AbstractSeriesBootstrapper):
         self.data_series = self.add_cpue()
 
     def add_cpue(self):
-        data = self.parameters["dataframe"]
+        data = self.bootstrap_config["dataframe"]
         data["CPUE"] = data.Capturas / data.Esfuerzo
         return data
 
@@ -20,7 +20,7 @@ class ProgressBootstrapper(AbstractSeriesBootstrapper):
         distribution = []
         distribution_size = 0
         captures = self.data_series.Capturas.sum()
-        while self.parameters["N"] > distribution_size:
+        while self.bootstrap_config["N"] > distribution_size:
             sample = resample_eradication_data(self.data_series, rng)
             parameters = fit_ramsey_plot(sample)
             is_valid = -parameters[1] / parameters[0] > captures

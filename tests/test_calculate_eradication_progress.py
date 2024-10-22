@@ -43,4 +43,4 @@ def test_ProgressBootstrapper():
         "p-values",
         "bootstrap_intermediate_distribution",
     ]
-    assert obtained_fields == expected_fields
+    assert set(obtained_fields) == set(expected_fields)

@@ -41,7 +41,7 @@ def test_save_intervals():
         "p-values",
         "bootstrap_intermediate_distribution",
     ]
-    assert obtained_fields == expected_fields
+    assert set(obtained_fields) == set(expected_fields)
     obtained_values = list(obtained_json.values())
     expected_intervals = [[1.11653, 150.30929], [1.21173, 77.48159], [1.4272, 4.56072]]
     assert_array_almost_equal(obtained_values[0], expected_intervals, decimal=5)

@@ -105,7 +105,7 @@ class AbstractSeriesBootstrapper(ABC):
             seasons_intervals = calculate_seasons_intervals(monitored_seasons)
             return ",".join(seasons_intervals)
 
-    def xxsave_intervals(self):
+    def get_parameters_dictionary(self):
         json_dict = {
             "intervals": list(self.intervals),
             "main_parameter_latex_interval": self.lambda_latex_interval,
@@ -152,7 +152,7 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
         return model
 
     def save_intervals(self, output_path):
-        json_dict = self.xxsave_intervals()
+        json_dict = self.get_parameters_dictionary()
         json_dict["lambda_latex_interval"] = json_dict.pop("main_parameter_latex_interval")
         with open(output_path, "w") as file:
             json.dump(json_dict, file)

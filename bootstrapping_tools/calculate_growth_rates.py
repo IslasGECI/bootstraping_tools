@@ -110,12 +110,12 @@ class AbstractSeriesBootstrapper(ABC):
             "intervals": list(self.intervals),
             "lambda_latex_interval": self.lambda_latex_interval,
             "p-values": self.p_values,
-            "bootstrap_intermediate_distribution": self.get_intermediate_lambdas(),
+            "bootstrap_intermediate_distribution": self.get_parameters_inside_confidence_interval(),
         }
         with open(output_path, "w") as file:
             json.dump(json_dict, file)
 
-    def get_intermediate_lambdas(self):
+    def get_parameters_inside_confidence_interval(self):
         return [
             lambda_n0
             for lambda_n0 in self.parameters_distribution

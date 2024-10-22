@@ -64,8 +64,7 @@ class AbstractSeriesBootstrapper(ABC):
     def __init__(self, bootstrap_parametrizer):
         self.bootstrap_config = bootstrap_parametrizer.parameters
         self.season_series = self.bootstrap_config["dataframe"]["Temporada"]
-        self.lambdas_n0_distribution, _ = self._calculate_distribution_and_interval()
-        self.lambdas = [lambdas_n0[0] for lambdas_n0 in self.lambdas_n0_distribution]
+        self.parameters_distribution, _ = self._calculate_distribution_and_interval()
         self.p_values = self.get_p_values()
         self.intervals = self.intervals_from_p_values_and_alpha()
         self.interval_lambdas = [interval[0] for interval in self.intervals]
@@ -76,13 +75,14 @@ class AbstractSeriesBootstrapper(ABC):
         return lambdas_n0_distribution, intervals
 
     def get_p_values(self):
-        p_value_mayor, p_value_menor = calculate_p_values(self.lambdas)
+        lambdas = [lambdas_n0[0] for lambdas_n0 in self.parameters_distribution]
+        p_value_mayor, p_value_menor = calculate_p_values(lambdas)
         p_values = (p_value_mayor, p_value_menor)
         return p_values
 
     def intervals_from_p_values_and_alpha(self):
         intervals = calculate_intervals_from_p_values_and_alpha(
-            self.lambdas_n0_distribution, self.p_values, self.bootstrap_config["alpha"]
+            self.parameters_distribution, self.p_values, self.bootstrap_config["alpha"]
         )
         return intervals
 
@@ -119,7 +119,7 @@ class AbstractSeriesBootstrapper(ABC):
     def get_intermediate_lambdas(self):
         return [
             lambda_n0
-            for lambda_n0 in self.lambdas_n0_distribution
+            for lambda_n0 in self.parameters_distribution
             if (lambda_n0[0] > self.intervals[0][0]) and (lambda_n0[0] < self.intervals[2][0])
         ]
 
@@ -130,7 +130,7 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
         super().__init__(bootstrap_parametrizer)
 
     def get_distribution(self):
-        return self.lambdas_n0_distribution
+        return self.parameters_distribution
 
     def get_inferior_central_and_superior_limit(self):
         inferior_limit, central, superior_limit = get_bootstrap_deltas(

@@ -8,14 +8,14 @@ class ProgressBootstrapper(AbstractSeriesBootstrapper):
         bootstrapper_parametrizer.parameters["dataframe"]["CPUE"] = 1
         super().__init__(bootstrapper_parametrizer)
         self.data_series = self.add_cpue()
+        self.parameters_distribution = self.get_parameters_distribution()
 
     def add_cpue(self):
         data = self.bootstrap_config["dataframe"]
         data["CPUE"] = data.Capturas / data.Esfuerzo
         return data
 
-    @property
-    def parameters_distribution(self):
+    def get_parameters_distribution(self):
         rng = np.random.default_rng(42)
         distribution = []
         distribution_size = 0

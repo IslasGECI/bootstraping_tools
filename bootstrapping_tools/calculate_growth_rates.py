@@ -108,7 +108,7 @@ class AbstractSeriesBootstrapper(ABC):
     def save_intervals(self, output_path):
         json_dict = {
             "intervals": list(self.intervals),
-            "lambda_latex_interval": self.lambda_latex_interval,
+            "slopes_latex_interval": self.lambda_latex_interval,
             "p-values": self.p_values,
             "bootstrap_intermediate_distribution": self.get_parameters_inside_confidence_interval(),
         }
@@ -147,3 +147,13 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
     def fit_population_model(self):
         model = fit_population_model(self.season_series, self.data_series)
         return model
+
+    def save_intervals(self, output_path):
+        json_dict = {
+            "intervals": list(self.intervals),
+            "lambda_latex_interval": self.lambda_latex_interval,
+            "p-values": self.p_values,
+            "bootstrap_intermediate_distribution": self.get_parameters_inside_confidence_interval(),
+        }
+        with open(output_path, "w") as file:
+            json.dump(json_dict, file)

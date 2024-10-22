@@ -67,7 +67,6 @@ class AbstractSeriesBootstrapper(ABC):
         self.parameters_distribution, _ = self._calculate_distribution_and_interval()
         self.intervals = self.intervals_from_p_values_and_alpha()
         self.interval_lambdas = [interval[0] for interval in self.intervals]
-        self.lambda_latex_interval = self.get_lambda_interval_latex_string()
 
     def _calculate_distribution_and_interval(self):
         lambdas_n0_distribution, intervals = bootstrap_from_time_series(**self.bootstrap_config)
@@ -86,7 +85,8 @@ class AbstractSeriesBootstrapper(ABC):
         )
         return intervals
 
-    def get_lambda_interval_latex_string(self):
+    @property
+    def lambda_latex_interval(self):
         lambda_latex_string = generate_latex_interval_string(
             self.interval_lambdas, deltas=False, **{"decimals": 2}
         )

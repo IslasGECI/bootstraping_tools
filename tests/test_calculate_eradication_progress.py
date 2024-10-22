@@ -39,7 +39,7 @@ def test_ProgressBootstrapper():
     obtained_fields = list(obtained_json.keys())
     expected_fields = [
         "intervals",
-        "lambda_latex_interval",
+        "slopes_latex_interval",
         "p-values",
         "bootstrap_intermediate_distribution",
     ]

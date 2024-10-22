@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Copia repositorio
-      uses: actions/checkout@master
+      uses: actions/checkout@main
     - name: Construye imagen
       run: docker build --tag islasgeci/bootstrapping_tools:latest --tag islasgeci/bootstrapping_tools:${GITHUB_SHA:0:4} .
     - name: Verifica el formato
@@ -43,15 +43,15 @@ jobs:
         --outdir dist/
         .
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TOKEN }}
-        skip_existing: true
+        skip-existing: true
   mutants:
     runs-on: ubuntu-latest
     steps:
     - name: Copia repositorio
-      uses: actions/checkout@master
+      uses: actions/checkout@main
     - name: Construye imagen
       run: docker build --tag islasgeci/bootstrapping_tools:latest --tag islasgeci/bootstrapping_tools:${GITHUB_SHA:0:4} .
     - name: Evalúa resistencia a mutaciones

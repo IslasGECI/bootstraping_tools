@@ -105,15 +105,18 @@ class AbstractSeriesBootstrapper(ABC):
             seasons_intervals = calculate_seasons_intervals(monitored_seasons)
             return ",".join(seasons_intervals)
 
-    def save_intervals(self, output_path):
+    def xxsave_intervals(self):
         json_dict = {
             "intervals": list(self.intervals),
-            "slopes_latex_interval": self.lambda_latex_interval,
+            "main_parameter_latex_interval": self.lambda_latex_interval,
             "p-values": self.p_values,
             "bootstrap_intermediate_distribution": self.get_parameters_inside_confidence_interval(),
         }
-        with open(output_path, "w") as file:
-            json.dump(json_dict, file)
+        return json_dict
+
+    @abstractmethod
+    def save_intervals(self, output_path):
+        pass
 
     def get_parameters_inside_confidence_interval(self):
         return [
@@ -149,11 +152,7 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
         return model
 
     def save_intervals(self, output_path):
-        json_dict = {
-            "intervals": list(self.intervals),
-            "lambda_latex_interval": self.lambda_latex_interval,
-            "p-values": self.p_values,
-            "bootstrap_intermediate_distribution": self.get_parameters_inside_confidence_interval(),
-        }
+        json_dict = self.xxsave_intervals()
+        json_dict["lambda_latex_interval"] = json_dict.pop("main_parameter_latex_interval")
         with open(output_path, "w") as file:
             json.dump(json_dict, file)

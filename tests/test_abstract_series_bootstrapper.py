@@ -2,7 +2,6 @@ from bootstrapping_tools import AbstractSeriesBootstrapper, Bootstrap_from_time_
 
 
 def test_abstract_bootstrapp():
-    AbstractSeriesBootstrapper.__abstractmethods__ = set()
 
     class Dummy(AbstractSeriesBootstrapper):
         def __init__(self, bootstrapper_parametrizer):

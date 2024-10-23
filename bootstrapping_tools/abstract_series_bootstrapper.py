@@ -1,6 +1,4 @@
 from abc import ABC, abstractmethod
-import numpy as np
-
 
 from bootstrapping_tools.bootstrapping import (
     calculate_intervals_from_p_values_and_alpha,

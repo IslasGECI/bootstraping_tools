@@ -1,4 +1,4 @@
-from bootstrapping_tools.calculate_growth_rates import AbstractSeriesBootstrapper
+from bootstrapping_tools.abstract_series_bootstrapper import AbstractSeriesBootstrapper
 
 import numpy as np
 import json

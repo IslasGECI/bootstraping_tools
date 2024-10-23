@@ -77,7 +77,7 @@ class AbstractSeriesBootstrapper(ABC):
         return json_dict
 
     @abstractmethod
-    def save_intervals(self, output_path):
+    def save_intervals(self):
         pass
 
     def get_parameters_inside_confidence_interval(self):

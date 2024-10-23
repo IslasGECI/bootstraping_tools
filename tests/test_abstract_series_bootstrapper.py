@@ -28,6 +28,8 @@ def test_abstract_bootstrapp():
     assert isinstance(obtained.parameters_distribution, list)
     obtained.save_intervals("path")
     assert isinstance(obtained.lambda_latex_interval, str)
+    assert isinstance(obtained.get_parameters_dictionary(), dict)
+    assert isinstance(obtained.get_parameters_inside_confidence_interval(), list)
 
 
 @pytest.mark.xfail(strict=True)

@@ -6,6 +6,9 @@ def test_abstract_bootstrapp():
 
     class Dummy(AbstractSeriesBootstrapper):
         def __init__(self, bootstrapper_parametrizer):
+            self.parameters_distribution = self.get_parameter_distribution()
+
+        def get_parameter_distribution(self):
             pass
 
     independent_variable = "Capturas"

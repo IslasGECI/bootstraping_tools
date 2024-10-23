@@ -16,16 +16,18 @@ def test_abstract_bootstrapp():
     class Dummy(AbstractSeriesBootstrapper):
         def __init__(self, bootstrapper_parametrizer):
             self.parameters_distribution = self.get_parameters_distribution()
+            self.bootstrap_config = bootstrapper_parametrizer.parameters
 
         def get_parameters_distribution(self):
-            pass
+            return [[1], [3], [5]]
 
         def save_intervals(self, output_path):
             pass
 
     obtained = Dummy(parametrizer)
-    assert obtained.parameters_distribution is None
+    assert isinstance(obtained.parameters_distribution, list)
     obtained.save_intervals("path")
+    assert isinstance(obtained.lambda_latex_interval, str)
 
 
 @pytest.mark.xfail(strict=True)
@@ -37,7 +39,8 @@ def tests_abstract_method_error():
         def get_parameters_distribution(self):
             pass
 
-    Dummy_without_save_intervals(parametrizer)
+    obtained = Dummy_without_save_intervals(parametrizer)
+    obtained.interval_lambdas is None
 
 
 @pytest.mark.xfail(strict=True)

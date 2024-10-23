@@ -9,19 +9,6 @@ from bootstrapping_tools.bootstrapping import (
 )
 
 
-def calculate_seasons_intervals(seasons):
-    years = []
-    first_index = 0
-    for index in np.where(np.diff(seasons) != 1)[0]:
-        if seasons[first_index] == seasons[index]:
-            years.append(f"{seasons[index]}")
-        else:
-            years.append(f"{seasons[first_index]}-{seasons[index]}")
-        first_index = index + 1
-    years.append(f"{seasons[first_index]}-{seasons[-1]}")
-    return years
-
-
 class AbstractSeriesBootstrapper(ABC):
 
     @abstractmethod
@@ -52,20 +39,6 @@ class AbstractSeriesBootstrapper(ABC):
             self.interval_lambdas, deltas=False, **{"decimals": 2}
         )
         return lambda_latex_string
-
-    def generate_season_interval(self):
-        return "({}-{})".format(
-            self.season_series.min(axis=0),
-            self.season_series.max(axis=0),
-        )
-
-    def get_monitored_seasons(self):
-        monitored_seasons = np.sort(self.season_series.astype(int).unique())
-        if len(monitored_seasons) == 1:
-            return f"{monitored_seasons[0]}"
-        else:
-            seasons_intervals = calculate_seasons_intervals(monitored_seasons)
-            return ",".join(seasons_intervals)
 
     def get_parameters_dictionary(self):
         json_dict = {

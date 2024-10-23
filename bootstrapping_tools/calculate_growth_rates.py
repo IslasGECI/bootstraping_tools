@@ -8,6 +8,7 @@ from bootstrapping_tools.bootstrapping import (
 from bootstrapping_tools.abstract_series_bootstrapper import AbstractSeriesBootstrapper
 
 import json
+import numpy as np
 
 
 class Bootstrap_from_time_series_parametrizer:
@@ -44,6 +45,19 @@ def fit_population_model(seasons_series, data_series):
     return model
 
 
+def calculate_seasons_intervals(seasons):
+    years = []
+    first_index = 0
+    for index in np.where(np.diff(seasons) != 1)[0]:
+        if seasons[first_index] == seasons[index]:
+            years.append(f"{seasons[index]}")
+        else:
+            years.append(f"{seasons[first_index]}-{seasons[index]}")
+        first_index = index + 1
+    years.append(f"{seasons[first_index]}-{seasons[-1]}")
+    return years
+
+
 class LambdasBootstrapper(AbstractSeriesBootstrapper):
     def __init__(self, bootstrap_parametrizer):
         self.bootstrap_config = bootstrap_parametrizer.parameters
@@ -67,6 +81,20 @@ class LambdasBootstrapper(AbstractSeriesBootstrapper):
     def fit_population_model(self):
         model = fit_population_model(self.season_series, self.data_series)
         return model
+
+    def generate_season_interval(self):
+        return "({}-{})".format(
+            self.season_series.min(axis=0),
+            self.season_series.max(axis=0),
+        )
+
+    def get_monitored_seasons(self):
+        monitored_seasons = np.sort(self.season_series.astype(int).unique())
+        if len(monitored_seasons) == 1:
+            return f"{monitored_seasons[0]}"
+        else:
+            seasons_intervals = calculate_seasons_intervals(monitored_seasons)
+            return ",".join(seasons_intervals)
 
     def save_intervals(self, output_path):
         json_dict = self.get_parameters_dictionary()

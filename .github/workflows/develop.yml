@@ -64,4 +64,4 @@ jobs:
         path: html
     - name: Error if there are mutants
       if: "${{ steps.artifact-upload-step.outputs.artifact-id  == '' }}"
-      run: exit 1
+      run: exit 2

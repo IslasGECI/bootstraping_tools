@@ -5,4 +5,4 @@ from .bootstrapping import *  # noqa
 from .n0_and_lambdas_intervals import *  # noqa
 from .resample_by_blocks import *  # noqa
 from .abstract_series_bootstrapper import *  # noqa
-from .calculate_growth_rates import *  # noqa
+from .bootstrap_parametrizer import *  # noqa

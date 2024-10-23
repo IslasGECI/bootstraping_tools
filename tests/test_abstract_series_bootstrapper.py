@@ -17,4 +17,4 @@ def test_abstract_bootstrapp():
         independent_variable=independent_variable,
     )
     obtained = Dummy(parametrizer)
-    assert obtained.parameters_distribution == None
+    assert obtained.parameters_distribution is None

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2024-10-23
+### Added
+- Add abstract class `AbstractSeriesBootstrapper` as template for `LambdasBootstrapper` and `ProgressBootstrapper` classes
+- Add class `Bootstrap_from_time_series_parametrizer` from `population_trend` repository
+
+### Changed
+- New argument `independent_variable `in class `Bootstrap_from_time_series_parametrizer`
+
+### Removed
+- Move class `LambdasBootstrapper` to `population_trend` repository
+- Move class `ProgressBootstrapper` to `eradication_data_requirements` repository
+
+
 ## [3.1.0] - 2024-10-17
 ### Added
 - Import class `Bootstrap_from_time_series` from package `population-trend`
